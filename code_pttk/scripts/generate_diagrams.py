@@ -4,48 +4,65 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import os
 
-os.makedirs('gen_diagrams', exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.path.join(BASE_DIR, 'diagrams', 'generated')
+os.makedirs(OUT_DIR, exist_ok=True)
 
 VP_BLUE = '#7ACFF5'
 VP_BORDER = '#000000'
 VP_TEXT = '#000000'
 VP_BG_WHITE = '#FFFFFF'
 
+def get_ky(ax):
+    fig = ax.figure
+    w_in, h_in = fig.get_size_inches()
+    x0, x1 = ax.get_xlim()
+    y0, y1 = ax.get_ylim()
+    return ((y1 - y0) / h_in) / ((x1 - x0) / w_in)
+
 def draw_actor(ax, x, y, name):
-    r = 0.16
-    circle = patches.Circle((x, y + 0.45), r, edgecolor=VP_BORDER, facecolor='none', lw=1.2, zorder=6)
+    ky = get_ky(ax)
+    r = 0.14
+    # Head (filled with VP_BLUE, perfect circle)
+    head_y = y + 0.36 * ky
+    circle = patches.Ellipse((x, head_y), 2 * r, 2 * r * ky, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=6)
     ax.add_patch(circle)
     # Body
-    ax.plot([x, x], [y + 0.45 - r, y + 0.05], color=VP_BORDER, lw=1.3, zorder=6)
+    ax.plot([x, x], [head_y - r * ky, y + 0.04 * ky], color=VP_BORDER, lw=1.3, zorder=6)
     # Arms
-    ax.plot([x - 0.22, x + 0.22], [y + 0.22, y + 0.22], color=VP_BORDER, lw=1.3, zorder=6)
+    ax.plot([x - 0.20, x + 0.20], [y + 0.18 * ky, y + 0.18 * ky], color=VP_BORDER, lw=1.3, zorder=6)
     # Legs
-    ax.plot([x, x - 0.18], [y + 0.05, y - 0.28], color=VP_BORDER, lw=1.3, zorder=6)
-    ax.plot([x, x + 0.18], [y + 0.05, y - 0.28], color=VP_BORDER, lw=1.3, zorder=6)
-    ax.text(x, y - 0.45, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
+    ax.plot([x, x - 0.16], [y + 0.04 * ky, y - 0.22 * ky], color=VP_BORDER, lw=1.3, zorder=6)
+    ax.plot([x, x + 0.16], [y + 0.04 * ky, y - 0.22 * ky], color=VP_BORDER, lw=1.3, zorder=6)
+    ax.text(x, y - 0.32 * ky, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
 
 def draw_boundary_icon(ax, x, y, name):
-    r = 0.26
-    # Circle
-    circle = patches.Circle((x, y), r, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=5)
+    ky = get_ky(ax)
+    r = 0.24
+    # Perfect Circle
+    circle = patches.Ellipse((x, y), 2 * r, 2 * r * ky, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=5)
     ax.add_patch(circle)
     # Vertical line to the left
-    bar_x = x - r - 0.12
-    ax.plot([bar_x, bar_x], [y - r - 0.1, y + r + 0.1], color=VP_BORDER, lw=1.2, zorder=5)
+    bar_x = x - r - 0.14
+    ax.plot([bar_x, bar_x], [y - r * ky, y + r * ky], color=VP_BORDER, lw=1.2, zorder=5)
     # Connector
     ax.plot([bar_x, x - r], [y, y], color=VP_BORDER, lw=1.2, zorder=5)
-    ax.text(x, y - r - 0.22, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
+    ax.text(x, y - (r + 0.14) * ky, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
 
 def draw_controller_icon(ax, x, y, name):
-    r = 0.26
-    circle = patches.Circle((x, y), r, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=5)
+    ky = get_ky(ax)
+    r = 0.24
+    # Perfect Circle
+    circle = patches.Ellipse((x, y), 2 * r, 2 * r * ky, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=5)
     ax.add_patch(circle)
-    # Curving arrow on top
-    ax.annotate('', xy=(x + r*0.4, y + r + 0.08), xytext=(x - r*0.4, y + r + 0.08),
-                arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=-0.4', color=VP_BORDER, lw=1.2), zorder=6)
-    ax.text(x, y - r - 0.22, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
+    # Visual Paradigm Controller Arrowhead at top of circle
+    tip_x, tip_y = x - 0.05, y + r * ky
+    ax.plot([tip_x + 0.13, tip_x, tip_x + 0.11],
+            [tip_y + 0.08 * ky, tip_y, tip_y - 0.07 * ky],
+            color=VP_BORDER, lw=1.25, zorder=6)
+    ax.text(x, y - (r + 0.14) * ky, name, ha='center', va='top', fontsize=8.5, color=VP_TEXT, zorder=6)
 
-def draw_entity_box(ax, x, y, name, width=1.5, height=0.52):
+def draw_entity_box(ax, x, y, name, width=1.5, height=0.55):
     rect = patches.Rectangle((x - width/2, y - height/2), width, height, 
                              edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=5)
     ax.add_patch(rect)
@@ -124,10 +141,10 @@ def gen_seq_tao_combo():
     draw_entity_box(ax, xs['detail'], y_header, ":ComboDetail", width=1.5)
     draw_entity_box(ax, xs['category'], y_header, ":Category", width=1.4)
 
-    y_start = y_header - 0.5
     y_end = -13.6
     for key, x in xs.items():
-        draw_lifeline(ax, x, y_start, y_end)
+        y_top_line = y_header - 0.82 if key in ('ql', 'tn', 'ui', 'map_ui', 'merge_ui', 'list_ui', 'pay_ui', 'ctrl') else y_header - 0.275
+        draw_lifeline(ax, x, y_top_line, y_end)
 
     draw_activation(ax, xs['ql'], -0.8, -13.2)
     draw_activation(ax, xs['ui'], -1.0, -2.4)
@@ -153,10 +170,10 @@ def gen_seq_tao_combo():
     draw_message(ax, xs['ctrl'], xs['ctrl'], -4.6, "3.1.1: kiemTraComboHopLe()", self_call=True)
 
     # Alt Fragment
-    draw_fragment(ax, 0.4, 13.2, -5.3, -12.7, "alt", 
+    draw_fragment(ax, 0.4, 13.2, -5.3, -12.8, "alt", 
                   "Dữ liệu hợp lệ", 
                   "Dữ liệu không hợp lệ (trùng tên / chưa chọn món)", 
-                  y_divider=-11.4)
+                  y_divider=-11.25)
 
     # Inside Valid
     draw_message(ax, xs['ctrl'], xs['combo'], -5.9, "3.1.2: taoComboMoi(ten, gia, soNguoi)")
@@ -171,17 +188,17 @@ def gen_seq_tao_combo():
     draw_message(ax, xs['ctrl'], xs['combo'], -9.5, "3.1.3: tinhGiaCombo()")
     draw_message(ax, xs['combo'], xs['ctrl'], -9.8, "3.1.3.1: Tổng giá gốc tham khảo", is_return=True)
     draw_message(ax, xs['ctrl'], xs['ctrl'], -10.3, "3.1.4: luuComboVaoHeThong()", self_call=True)
-    draw_message(ax, xs['ctrl'], xs['ui'], -10.8, "3.1.5: Lưu thành công", is_return=True)
-    draw_message(ax, xs['ui'], xs['ql'], -11.1, "3.1.6: Làm mới thực đơn & thông báo thành công", is_return=True)
+    draw_message(ax, xs['ctrl'], xs['ui'], -10.75, "3.1.5: Lưu thành công", is_return=True)
+    draw_message(ax, xs['ui'], xs['ql'], -11.05, "3.1.6: Làm mới thực đơn & thông báo thành công", is_return=True)
 
     # Inside Invalid
-    draw_message(ax, xs['ctrl'], xs['ui'], -11.8, "3.1.7: Báo lỗi dữ liệu không hợp lệ", is_return=True)
-    draw_message(ax, xs['ui'], xs['ql'], -12.1, "3.1.8: Báo lỗi, giữ nguyên nội dung form", is_return=True)
+    draw_message(ax, xs['ctrl'], xs['ui'], -11.95, "3.1.7: Báo lỗi dữ liệu không hợp lệ", is_return=True)
+    draw_message(ax, xs['ui'], xs['ql'], -12.35, "3.1.8: Báo lỗi, giữ nguyên nội dung form", is_return=True)
 
     add_vp_footer(ax, 13.5, -14.0)
 
     plt.tight_layout()
-    plt.savefig('gen_diagrams/seq_tao_combo.png')
+    plt.savefig(os.path.join(OUT_DIR, 'seq_tao_combo.png'))
     plt.close()
     print("Done gen seq_tao_combo (VP style)")
 
@@ -216,10 +233,10 @@ def gen_seq_gop_don():
     draw_entity_box(ax, xs['table'], y_header, ":RestaurantTable", width=1.5)
     draw_entity_box(ax, xs['log'], y_header, ":OrderMergeLog", width=1.4)
 
-    y_start = y_header - 0.5
     y_end = -13.6
     for key, x in xs.items():
-        draw_lifeline(ax, x, y_start, y_end)
+        y_top_line = y_header - 0.82 if key in ('ql', 'tn', 'ui', 'map_ui', 'merge_ui', 'list_ui', 'pay_ui', 'ctrl') else y_header - 0.275
+        draw_lifeline(ax, x, y_top_line, y_end)
 
     draw_activation(ax, xs['tn'], -0.8, -13.2)
     draw_activation(ax, xs['map_ui'], -1.0, -2.4)
@@ -277,7 +294,7 @@ def gen_seq_gop_don():
     add_vp_footer(ax, 14.0, -14.0)
 
     plt.tight_layout()
-    plt.savefig('gen_diagrams/seq_gop_don.png')
+    plt.savefig(os.path.join(OUT_DIR, 'seq_gop_don.png'))
     plt.close()
     print("Done gen seq_gop_don (VP style)")
 
@@ -312,10 +329,10 @@ def gen_seq_thanh_toan():
     draw_entity_box(ax, xs['table'], y_header, ":RestaurantTable", width=1.5)
     draw_entity_box(ax, xs['log'], y_header, ":PaymentLog", width=1.4)
 
-    y_start = y_header - 0.5
     y_end = -13.6
     for key, x in xs.items():
-        draw_lifeline(ax, x, y_start, y_end)
+        y_top_line = y_header - 0.82 if key in ('ql', 'tn', 'ui', 'map_ui', 'merge_ui', 'list_ui', 'pay_ui', 'ctrl') else y_header - 0.275
+        draw_lifeline(ax, x, y_top_line, y_end)
 
     draw_activation(ax, xs['tn'], -0.8, -13.2)
     draw_activation(ax, xs['list_ui'], -1.0, -2.4)
@@ -368,7 +385,7 @@ def gen_seq_thanh_toan():
     add_vp_footer(ax, 14.0, -14.0)
 
     plt.tight_layout()
-    plt.savefig('gen_diagrams/seq_thanh_toan.png')
+    plt.savefig(os.path.join(OUT_DIR, 'seq_thanh_toan.png'))
     plt.close()
     print("Done gen seq_thanh_toan (VP style)")
 

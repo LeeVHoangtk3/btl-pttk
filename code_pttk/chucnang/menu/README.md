@@ -21,13 +21,13 @@ Trong pha phân tích, các sơ đồ tập trung vào miền nghiệp vụ (Dom
 
 | Chức năng | Sơ đồ tuần tự (Sequence Diagram) | Sơ đồ lớp (VOPC Class Diagram) |
 |---|---|---|
-| **Thêm món** | [sequence_them_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_them_mon.mermaid) | [class_them_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_them_mon.mermaid) |
-| **Sửa món** | [sequence_sua_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_sua_mon.mermaid) | [class_sua_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_sua_mon.mermaid) |
-| **Xóa món** | [sequence_xoa_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_xoa_mon.mermaid) | [class_xoa_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_xoa_mon.mermaid) |
-| **Thêm combo** | [sequence_them_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_them_combo.mermaid) | [class_them_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_them_combo.mermaid) |
-| **Sửa combo** | [sequence_sua_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_sua_combo.mermaid) | [class_sua_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_sua_combo.mermaid) |
-| **Xóa combo** | [sequence_xoa_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/sequence_xoa_combo.mermaid) | [class_xoa_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_xoa_combo.mermaid) |
-| **Tổng thể Menu** | - | [class_menu_phan_tich_tong_the.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/phantich/class_menu_phan_tich_tong_the.mermaid) |
+| **Thêm món** | [sequence_them_mon.mermaid](./phantich/sequence_them_mon.mermaid) | [class_them_mon.mermaid](./phantich/class_them_mon.mermaid) |
+| **Sửa món** | [sequence_sua_mon.mermaid](./phantich/sequence_sua_mon.mermaid) | [class_sua_mon.mermaid](./phantich/class_sua_mon.mermaid) |
+| **Xóa món** | [sequence_xoa_mon.mermaid](./phantich/sequence_xoa_mon.mermaid) | [class_xoa_mon.mermaid](./phantich/class_xoa_mon.mermaid) |
+| **Thêm combo** | [sequence_them_combo.mermaid](./phantich/sequence_them_combo.mermaid) | [class_them_combo.mermaid](./phantich/class_them_combo.mermaid) |
+| **Sửa combo** | [sequence_sua_combo.mermaid](./phantich/sequence_sua_combo.mermaid) | [class_sua_combo.mermaid](./phantich/class_sua_combo.mermaid) |
+| **Xóa combo** | [sequence_xoa_combo.mermaid](./phantich/sequence_xoa_combo.mermaid) | [class_xoa_combo.mermaid](./phantich/class_xoa_combo.mermaid) |
+| **Tổng thể Menu** | - | [class_menu_phan_tich_tong_the.mermaid](./phantich/class_menu_phan_tich_tong_the.mermaid) |
 
 ---
 
@@ -38,10 +38,10 @@ Trong pha thiết kế, các sơ đồ được áp dụng mô hình phân lớp
 
 | Chức năng | Sơ đồ tuần tự (Sequence Diagram) | Sơ đồ lớp (VOPC Class Diagram) |
 |---|---|---|
-| **Thêm món** | [sequence_them_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_them_mon.mermaid) | [class_them_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_them_mon.mermaid) |
-| **Sửa món** | [sequence_sua_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_sua_mon.mermaid) | [class_sua_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_sua_mon.mermaid) |
-| **Xóa món** | [sequence_xoa_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_xoa_mon.mermaid) | [class_xoa_mon.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_xoa_mon.mermaid) |
-| **Thêm combo** | [sequence_them_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_them_combo.mermaid) | [class_them_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_them_combo.mermaid) |
-| **Sửa combo** | [sequence_sua_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_sua_combo.mermaid) | [class_sua_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_sua_combo.mermaid) |
-| **Xóa combo** | [sequence_xoa_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/sequence_xoa_combo.mermaid) | [class_xoa_combo.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_xoa_combo.mermaid) |
-| **Tổng thể Menu** | - | [class_menu_thiet_ke_tong_the.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/menu/thietke/class_menu_thiet_ke_tong_the.mermaid) |
+| **Thêm món** | [sequence_them_mon.mermaid](./thietke/sequence_them_mon.mermaid) | [class_them_mon.mermaid](./thietke/class_them_mon.mermaid) |
+| **Sửa món** | [sequence_sua_mon.mermaid](./thietke/sequence_sua_mon.mermaid) | [class_sua_mon.mermaid](./thietke/class_sua_mon.mermaid) |
+| **Xóa món** | [sequence_xoa_mon.mermaid](./thietke/sequence_xoa_mon.mermaid) | [class_xoa_mon.mermaid](./thietke/class_xoa_mon.mermaid) |
+| **Thêm combo** | [sequence_them_combo.mermaid](./thietke/sequence_them_combo.mermaid) | [class_them_combo.mermaid](./thietke/class_them_combo.mermaid) |
+| **Sửa combo** | [sequence_sua_combo.mermaid](./thietke/sequence_sua_combo.mermaid) | [class_sua_combo.mermaid](./thietke/class_sua_combo.mermaid) |
+| **Xóa combo** | [sequence_xoa_combo.mermaid](./thietke/sequence_xoa_combo.mermaid) | [class_xoa_combo.mermaid](./thietke/class_xoa_combo.mermaid) |
+| **Tổng thể Menu** | - | [class_menu_thiet_ke_tong_the.mermaid](./thietke/class_menu_thiet_ke_tong_the.mermaid) |

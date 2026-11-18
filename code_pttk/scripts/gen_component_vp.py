@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import os
 
-os.makedirs('gen_diagrams', exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.path.join(BASE_DIR, 'diagrams', 'generated')
+os.makedirs(OUT_DIR, exist_ok=True)
 
 VP_BLUE = '#7ACFF5'
 VP_BORDER = '#000000'
@@ -13,8 +15,8 @@ VP_BG_WHITE = '#FFFFFF'
 
 def draw_actor(ax, x, y, name):
     r = 0.22
-    # Head
-    circle = patches.Circle((x, y + 0.6), r, edgecolor=VP_BORDER, facecolor='none', lw=1.2, zorder=6)
+    # Head (filled with VP_BLUE)
+    circle = patches.Circle((x, y + 0.6), r, edgecolor=VP_BORDER, facecolor=VP_BLUE, lw=1.2, zorder=6)
     ax.add_patch(circle)
     # Body
     ax.plot([x, x], [y + 0.6 - r, y + 0.1], color=VP_BORDER, lw=1.3, zorder=6)
@@ -148,7 +150,7 @@ def generate_corrected_component_diagram():
     draw_ball_socket(ax, ball_x2, 1.2, "IPaymentData", svc_x + svc_w, db_x)
 
     plt.tight_layout()
-    plt.savefig('gen_diagrams/component_system_corrected.png')
+    plt.savefig(os.path.join(OUT_DIR, 'component_system_corrected.png'))
     plt.close()
     print("Done generating corrected component diagram!")
 
