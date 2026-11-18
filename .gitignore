@@ -1,26 +1,24 @@
-# Byte-compiled / optimized / DLL files
+# Python cache
 __pycache__/
 *.py[cod]
-*$py.class
 
-# Java compiled files
-*.class
-
-# Virtual environments
+# Virtual environment
 venv/
-env/
 .venv/
+env/
 
-# IDE & Editor files
-.idea/
+# Environment variables
+.env
+
+# IDE
 .vscode/
-*.swp
-*.swo
-*~
+.idea/
 
-# Operating System files
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+# Build
+build/
+dist/
+*.egg-info/
+
+# OS
 .DS_Store
+Thumbs.db
