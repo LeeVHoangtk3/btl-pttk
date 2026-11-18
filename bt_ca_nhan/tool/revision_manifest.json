@@ -1,0 +1,193 @@
+{
+  "NhanVien": {
+    "package": "model",
+    "fields": [
+      "- maNV: String",
+      "- hoTen: String",
+      "- phongBan: String",
+      "- chucVu: String",
+      "- email: String",
+      "- sdt: String"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính"
+    ]
+  },
+  "SinhVien": {
+    "package": "model",
+    "fields": [
+      "- maSV: String",
+      "- hoTen: String",
+      "- ngaySinh: java.sql.Date",
+      "- gioiTinh: String",
+      "- lop: String",
+      "- khoaHoc: String",
+      "- nganh: String",
+      "- email: String"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính"
+    ]
+  },
+  "MonHoc": {
+    "package": "model",
+    "fields": [
+      "- maMH: String",
+      "- tenMH: String",
+      "- soTinChi: int",
+      "- heSoCC: float",
+      "- heSoKT: float",
+      "- heSoThi: float"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính",
+      "+ kiemTraHopLe(): boolean"
+    ]
+  },
+  "HocKy": {
+    "package": "model",
+    "fields": [
+      "- maHocKy: String",
+      "- tenHocKy: String",
+      "- namHoc: String"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính"
+    ]
+  },
+  "LopHocPhan": {
+    "package": "model",
+    "fields": [
+      "- maLHP: String",
+      "- tenLHP: String",
+      "- siSo: int",
+      "- phongHoc: String",
+      "- monHoc: MonHoc",
+      "- hocKy: HocKy",
+      "- giangVien: NhanVien"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính"
+    ]
+  },
+  "DangKy": {
+    "package": "model",
+    "fields": [
+      "- maSV: String",
+      "- maLHP: String",
+      "- ngayDangKy: java.sql.Date"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính"
+    ]
+  },
+  "Diem": {
+    "package": "model",
+    "fields": [
+      "- id: int",
+      "- maSV: String",
+      "- maLHP: String",
+      "- diemCC: Float",
+      "- diemKT: Float",
+      "- diemThi: Float",
+      "- diemTB: Float",
+      "- diemChu: String",
+      "- diemHe4: Float",
+      "- ghiChu: String",
+      "- sinhVien: SinhVien",
+      "- lopHocPhan: LopHocPhan"
+    ],
+    "methods": [
+      "+ get/set các thuộc tính",
+      "+ kiemTraHopLe(): boolean",
+      "+ tinhDiemTB(): void",
+      "+ quyDoiDiemChuVaHe4(): void"
+    ]
+  },
+  "DatabaseConnection": {
+    "package": "util",
+    "fields": [],
+    "methods": [
+      "+ open(): Connection"
+    ]
+  },
+  "HocKyDAO": {
+    "package": "dao",
+    "fields": [],
+    "methods": [
+      "+ getAllHocKy(): List<HocKy>"
+    ]
+  },
+  "SinhVienDAO": {
+    "package": "dao",
+    "fields": [],
+    "methods": [
+      "+ findByMa(maSV): SinhVien"
+    ]
+  },
+  "LopHocPhanDAO": {
+    "package": "dao",
+    "fields": [],
+    "methods": [
+      "+ findByNhanVien(maNV): List<LopHocPhan>",
+      "+ findByMa(maLHP): LopHocPhan"
+    ]
+  },
+  "DiemDAO": {
+    "package": "dao",
+    "fields": [],
+    "methods": [
+      "+ getDiemByLHP(maLHP): List<Diem>",
+      "+ getDiemBySinhVienAndHocKy(sv,hk): List<Diem>",
+      "+ saveBangDiem(ds): boolean"
+    ]
+  },
+  "NhapDiemController": {
+    "package": "controller",
+    "fields": [
+      "- diemDAO: DiemDAO",
+      "- lopDAO: LopHocPhanDAO"
+    ],
+    "methods": [
+      "+ layDSLHPTheoNV(maNV): List<LopHocPhan>",
+      "+ layBangDiemLHP(nv,lhp): List<Diem>",
+      "+ luuBangDiem(nv,lhp,ds): boolean"
+    ]
+  },
+  "XemDiemController": {
+    "package": "controller",
+    "fields": [
+      "- diemDAO: DiemDAO",
+      "- svDAO: SinhVienDAO",
+      "- hocKyDAO: HocKyDAO"
+    ],
+    "methods": [
+      "+ layDanhSachHocKy(): List<HocKy>",
+      "+ layThongTinSinhVien(sv): SinhVien",
+      "+ layKetQuaHocTap(sv,hk): List<Diem>",
+      "+ tinhGPA(ds): float",
+      "+ tinhCPA(sv): float",
+      "+ tinhTinChiTichLuy(ds): int"
+    ]
+  },
+  "NhapDiemUI": {
+    "package": "ui",
+    "fields": [
+      "- controller: NhapDiemController"
+    ],
+    "methods": [
+      "+ taiDanhSach(nv,lhp): List<Diem>",
+      "+ guiBangDiem(nv,lhp,ds): boolean"
+    ]
+  },
+  "XemDiemUI": {
+    "package": "ui",
+    "fields": [
+      "- controller: XemDiemController"
+    ],
+    "methods": [
+      "+ taiKetQua(sv,hk): List<Diem>",
+      "+ taiCPA(sv): float"
+    ]
+  }
+}

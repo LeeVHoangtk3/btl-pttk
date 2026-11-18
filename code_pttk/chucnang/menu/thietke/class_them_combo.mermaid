@@ -1,0 +1,62 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA THIET KE: CHUC NANG THEM COMBO
+%% ===================================================================
+
+class MenuUI {
+    <<boundary>>
+    -tuKhoaTimKiem: String
+    -danhSachMonHienThi: List~MenuItem~
+    -monDangChon: MenuItem
+    +hienThiDanhSachMon() void
+    +hienThiFormTaoCombo() void
+}
+
+class MenuController {
+    <<control>>
+    +timKiemMon(tuKhoa: String) List~MenuItem~
+    +themCombo(combo: Combo) bool
+}
+
+class MenuItem {
+    <<entity>>
+    <<abstract>>
+    #maMon: String
+    #tenMon: String
+    #gia: double
+    #hinhAnh: String
+    #dangKinhDoanh: bool
+    +getMaMon() String
+    +getTenMon() String
+    +getGia() double
+}
+
+class Dish {
+    <<entity>>
+    -loaiMon: String
+    -moTa: String
+    +getLoaiMon() String
+    +getMoTa() String
+}
+
+class Combo {
+    <<entity>>
+    -soLuongNguoiAn: int
+    +themMonCon(mon: Dish, soLuong: int) void
+    +tinhGiaCombo() double
+}
+
+class ComboDetail {
+    <<entity>>
+    -soLuong: int
+    -ghiChu: String
+    +getSoLuong() int
+    +getGhiChu() String
+}
+
+MenuUI --> MenuController : goi themCombo(combo)
+MenuController --> Combo : tao moi va quan ly
+MenuItem <|-- Dish : la mon le
+MenuItem <|-- Combo : la combo
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

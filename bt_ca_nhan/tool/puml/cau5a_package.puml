@@ -1,0 +1,57 @@
+@startuml
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+skinparam package {
+    BackgroundColor #F9FBFD
+    BorderColor #000000
+    BorderThickness 1.2
+    FontStyle bold
+}
+
+skinparam class {
+    BackgroundColor #7ACFF5
+    BorderColor #000000
+    BorderThickness 1.0
+}
+
+hide circle
+hide methods
+hide fields
+
+package "com.qltc.ui (Presentation)" as pkg_ui {
+    class ThemMonHocUI
+    class DangKyMonHocUI
+}
+
+package "com.qltc.controller (Business)" as pkg_ctrl {
+    class ThemMonHocController
+    class DangKyMonHocController
+}
+
+package "com.qltc.model (Domain)" as pkg_model {
+    class MonHoc
+    class LopHocPhan
+    class DangKy
+}
+
+package "com.qltc.dao (Persistence)" as pkg_dao {
+    class MonHocDAO
+    class LopHocPhanDAO
+    class DangKyDAO
+}
+
+package "com.qltc.util (Common)" as pkg_util {
+    class DatabaseConnection
+}
+
+pkg_ui ..> pkg_ctrl : <<use>>
+pkg_ctrl ..> pkg_model : <<use>>
+pkg_ctrl ..> pkg_dao : <<use>>
+pkg_dao ..> pkg_model : <<use>>
+pkg_dao ..> pkg_util : <<use>>
+
+center footer Powered By Visual Paradigm Community Edition
+@enduml

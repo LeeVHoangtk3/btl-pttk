@@ -1,0 +1,55 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA PHAN TICH: CHUC NANG THEM COMBO
+%% ===================================================================
+
+class QuanLy {
+    <<actor>>
+}
+
+class MenuUI {
+    <<boundary>>
+    danhSachMonHienThi
+    monDangChon
+}
+
+class MenuController {
+    <<control>>
+}
+
+class MenuItem {
+    <<abstract>>
+    <<entity>>
+    maMon
+    tenMon
+    gia
+    hinhAnh
+    dangKinhDoanh
+}
+
+class Dish {
+    <<entity>>
+    loaiMon
+    moTa
+}
+
+class Combo {
+    <<entity>>
+    soLuongNguoiAn
+}
+
+class ComboDetail {
+    <<entity>>
+    soLuong
+    ghiChu
+}
+
+QuanLy --> MenuUI : nhap thong tin combo
+MenuUI --> MenuController : yeu cau tao combo
+MenuController --> Combo : tao moi
+MenuController --> ComboDetail : tao chi tiet mon
+MenuController --> Dish : lay danh sach mon le
+MenuItem <|-- Dish : la mot
+MenuItem <|-- Combo : la mot
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

@@ -1,0 +1,87 @@
+@startuml
+
+' =========================
+' STYLE (VISUAL PARADIGM)
+' =========================
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' Khoang cach deu giua cac bang
+skinparam nodesep 65
+skinparam ranksep 65
+
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam defaultFontColor #111111
+
+' Chi ten class in dam
+skinparam classFontStyle bold
+
+skinparam class {
+   BackgroundColor #7ACFF5
+   BorderColor #000000
+   BorderThickness 1
+
+   FontColor #111111
+   AttributeFontColor #111111
+
+   ArrowColor #000000
+   StereotypeFontColor #111111
+}
+
+skinparam package {
+   BackgroundColor #FFFFFF
+   BorderColor #000000
+   BorderThickness 1
+   FontStyle bold
+}
+
+hide circle
+' An toan bo phuong thuc de dung chuan pha phan tich
+hide methods
+
+' ===================================================================
+' CLASSES (ANALYSIS PHASE) - PACKAGE: MENU
+' ===================================================================
+package "MenuPackage" {
+    class Category {
+       - maDanhMuc
+       - tenDanhMuc
+       - moTa
+    }
+
+    abstract class MenuItem {
+       - maMon
+       - tenMon
+       - gia
+       - hinhAnh
+       - dangKinhDoanh
+    }
+
+    class Dish {
+       - loaiMon
+       - moTa
+    }
+
+    class Combo {
+       - soLuongNguoiAn
+    }
+
+    class ComboDetail {
+       - soLuong
+       - ghiChu
+    }
+}
+
+' =========================
+' ASSOCIATIONS
+' =========================
+Category "1" --down- "*" MenuItem
+MenuItem <|--down- Dish
+MenuItem <|--down- Combo
+
+Combo "1" *-right- "1..*" ComboDetail
+ComboDetail "*" -right-> "1" Dish
+
+@enduml

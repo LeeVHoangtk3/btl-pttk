@@ -1,0 +1,55 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA PHAN TICH: CHUC NANG THEM COMBO
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity D as Dish
+entity C as Combo
+entity CD as ComboDetail
+
+QL ->> UI: Yêu cầu tạo Combo mới
+activate UI
+UI ->> CTRL: Yêu cầu lấy danh sách món lẻ đang kinh doanh
+activate CTRL
+CTRL ->> D: Truy vấn danh sách món lẻ
+activate D
+D -->> CTRL: Trả về danh sách món lẻ
+deactivate D
+CTRL -->> UI: Trả về danh sách món lẻ
+deactivate CTRL
+
+UI -->> QL: Hiển thị form tạo combo (thông tin combo, danh sách chọn món con & số lượng)
+deactivate UI
+
+QL ->> UI: Nhập tên, giá, số người ăn, chọn các món con & nhấn "Lưu"
+activate UI
+UI ->> CTRL: Gửi thông tin Combo và danh sách món con được chọn
+activate CTRL
+
+CTRL ->> CTRL: Kiểm tra tính hợp lệ (tên, giá, ít nhất 1 món con)
+alt Thông tin hợp lệ
+    CTRL ->> C: Khởi tạo đối tượng Combo mới
+    activate C
+    C -->> CTRL: Tạo combo thành công
+    deactivate C
+
+    loop Với từng món lẻ được chọn trong combo
+        CTRL ->> CD: Khởi tạo chi tiết món con (ComboDetail)
+        activate CD
+        CD ->> D: Tham chiếu đến món lẻ
+        CD -->> CTRL: Tạo ComboDetail thành công
+        deactivate CD
+        CTRL ->> C: Gắn ComboDetail vào Combo
+    end
+
+    CTRL -->> UI: Thông báo tạo combo thành công
+    UI -->> QL: Hiển thị thông báo thành công & làm mới thực đơn
+else Thông tin không hợp lệ
+    CTRL -->> UI: Báo lỗi thông tin không hợp lệ
+    UI -->> QL: Hiển thị thông báo lỗi
+end
+deactivate CTRL
+deactivate UI

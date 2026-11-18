@@ -1,0 +1,54 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA THIET KE: CHUC NANG THEM COMBO
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity C as Combo: MenuItem
+entity CD as ComboDetail
+entity D as Dish: MenuItem
+
+QL ->> UI: Yêu cầu tạo Combo mới
+activate UI
+UI ->> CTRL: timKiemMon("")
+activate CTRL
+CTRL -->> UI: return List~MenuItem~ (danh sách món lẻ)
+deactivate CTRL
+
+UI ->> UI: hienThiFormTaoCombo()
+UI -->> QL: Hiển thị form tạo combo & danh sách chọn món lẻ con
+deactivate UI
+
+QL ->> UI: Nhập tên, giá, số người ăn, chọn các món con (kèm số lượng) & bấm "Lưu"
+activate UI
+UI ->> CTRL: themCombo(combo: Combo)
+activate CTRL
+
+CTRL ->> CTRL: kiemTraComboHopLe(combo)
+alt Dữ liệu combo không hợp lệ (trùng mã / chưa chọn món con)
+    CTRL -->> UI: return false
+    UI -->> QL: Hiển thị thông báo "Tạo combo thất bại"
+else Dữ liệu hợp lệ
+    create participant NewCombo as new Combo()
+    CTRL ->> NewCombo: khởi tạo Combo
+    loop Với từng món con được chọn
+        CTRL ->> NewCombo: themMonCon(mon: Dish, soLuong: int)
+        activate NewCombo
+        create participant NewDetail as new ComboDetail()
+        NewCombo ->> NewDetail: khởi tạo chi tiết món con
+        NewCombo -->> CTRL: return void
+        deactivate NewCombo
+    end
+    CTRL ->> NewCombo: tinhGiaCombo()
+    activate NewCombo
+    NewCombo -->> CTRL: return double
+    deactivate NewCombo
+
+    CTRL -->> UI: return true
+    UI ->> UI: hienThiDanhSachMon()
+    UI -->> QL: Hiển thị thông báo "Tạo combo thành công" & cập nhật danh sách
+end
+deactivate CTRL
+deactivate UI

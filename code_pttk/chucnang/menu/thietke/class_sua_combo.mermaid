@@ -1,0 +1,59 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA THIET KE: CHUC NANG SUA COMBO
+%% ===================================================================
+
+class MenuUI {
+    <<boundary>>
+    -monDangChon: MenuItem
+    -danhSachMonHienThi: List~MenuItem~
+    +hienThiDanhSachMon() void
+    +hienThiFormTaoCombo() void
+}
+
+class MenuController {
+    <<control>>
+    +suaCombo(combo: Combo) bool
+}
+
+class MenuItem {
+    <<entity>>
+    <<abstract>>
+    #maMon: String
+    #tenMon: String
+    #gia: double
+    #hinhAnh: String
+    #dangKinhDoanh: bool
+    +getMaMon() String
+    +getTenMon() String
+    +getGia() double
+}
+
+class Dish {
+    <<entity>>
+    -loaiMon: String
+    -moTa: String
+}
+
+class Combo {
+    <<entity>>
+    -soLuongNguoiAn: int
+    +themMonCon(mon: Dish, soLuong: int) void
+    +xoaMonCon(maMon: String) void
+    +tinhGiaCombo() double
+}
+
+class ComboDetail {
+    <<entity>>
+    -soLuong: int
+    -ghiChu: String
+    +getSoLuong() int
+    +getGhiChu() String
+}
+
+MenuUI --> MenuController : goi suaCombo(combo)
+MenuController --> Combo : cap nhat thong tin
+MenuItem <|-- Dish : la mon le
+MenuItem <|-- Combo : la combo
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

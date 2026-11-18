@@ -1,0 +1,48 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA THIET KE: CHUC NANG SUA COMBO
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity C as Combo: MenuItem
+entity CD as ComboDetail
+entity D as Dish: MenuItem
+
+QL ->> UI: Chọn Combo cần sửa từ danh sách
+activate UI
+UI ->> UI: hienThiFormTaoCombo()
+UI -->> QL: Hiển thị form chỉnh sửa Combo kèm các món con
+deactivate UI
+
+QL ->> UI: Chỉnh sửa giá, số người ăn, thêm/bớt món con & bấm "Lưu"
+activate UI
+UI ->> CTRL: suaCombo(combo: Combo)
+activate CTRL
+
+CTRL ->> C: getMaMon()
+activate C
+C -->> CTRL: return maMon
+deactivate C
+
+CTRL ->> CTRL: kiemTraTonTaiCombo(maMon)
+alt Combo không tồn tại
+    CTRL -->> UI: return false
+    UI -->> QL: Thông báo "Không tìm thấy combo để cập nhật"
+else Combo tồn tại & dữ liệu hợp lệ
+    CTRL ->> C: setTenMon(combo.getTenMon())
+    CTRL ->> C: setGia(combo.getGia())
+    CTRL ->> C: xoaMonCon(maMonCon)
+    CTRL ->> C: themMonCon(monMoi, soLuongMoi)
+    activate C
+    C ->> C: tinhGiaCombo()
+    C -->> CTRL: return void
+    deactivate C
+
+    CTRL -->> UI: return true
+    UI ->> UI: hienThiDanhSachMon()
+    UI -->> QL: Thông báo "Cập nhật Combo thành công"
+end
+deactivate CTRL
+deactivate UI

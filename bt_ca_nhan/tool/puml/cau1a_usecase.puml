@@ -1,0 +1,53 @@
+@startuml
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam defaultFontColor #000000
+
+skinparam actor {
+    BackgroundColor #FFFFFF
+    BorderColor #000000
+    BorderThickness 1.2
+}
+
+skinparam usecase {
+    BackgroundColor #7ACFF5
+    BorderColor #000000
+    BorderThickness 1.2
+}
+
+skinparam package {
+    BackgroundColor #FAFAFA
+    BorderColor #333333
+    BorderThickness 1.2
+}
+
+left to right direction
+
+actor "Nhân viên" as NV
+actor "Sinh viên" as SV
+
+rectangle "Hệ thống Quản lý học tập theo tín chỉ (QLTC)" {
+    usecase "Đăng nhập\nhệ thống" as UC_Login
+    usecase "Thêm Môn học vào\nDanh sách môn học" as UC_ThemMon
+    usecase "Tra cứu danh sách\nmôn học" as UC_TraCuu
+    usecase "Đăng ký môn học" as UC_DangKy
+    usecase "Kiểm tra điều kiện\ntiên quyết & sĩ số" as UC_KiemTra
+    usecase "Hủy đăng ký\nmôn học" as UC_HuyDK
+
+    NV -- UC_ThemMon
+    NV -- UC_Login
+
+    SV -- UC_DangKy
+    SV -- UC_Login
+
+    UC_ThemMon ..> UC_Login : <<include>>
+    UC_ThemMon ..> UC_TraCuu : <<include>>
+
+    UC_DangKy ..> UC_KiemTra : <<include>>
+    UC_HuyDK ..> UC_DangKy : <<extend>>
+}
+
+center footer Powered By Visual Paradigm Community Edition
+@enduml

@@ -1,0 +1,124 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA THIET KE - PACKAGE: ORDER
+%% (Da gop chuc nang cua DonPackage vao OrderPackage)
+%% ===================================================================
+
+namespace OrderPackage {
+    class TableSelectionUI {
+        <<boundary>>
+        +hienThiSoDoBan()
+        +chonKhuVuc(khu: Area)
+        +chonMotBan(ban: Table)
+    }
+
+    class OrderTakingUI {
+        <<boundary>>
+        +hienThiThucDon()
+        +chonMon(item: MenuItem)
+        +xacNhanDatMon()
+    }
+
+    class OrderManagementUI {
+        <<boundary>>
+        +hienThiMenuTuyChon()
+        +hienThiFormHuyDon()
+    }
+
+    class OrderController {
+        <<control>>
+        +xacDinhLoaiDon(loai: String) Order
+        +ganBan(don: OrderTaiCho, ban: Table) bool
+        +themMonVaoDon(don: Order, item: MenuItem, soLuong: int) bool
+        +taoDon(don: Order) bool
+        +gopHoaDon(donA: Order, donB: Order) Order
+        +tachHoaDon(don: Order) Order
+        +huyDon(don: Order, lyDo: LyDoHuyDon) bool
+        +diChuyenBan(don: OrderTaiCho, banMoi: Table) bool
+    }
+
+    class Area {
+        <<entity>>
+        -maKhuVuc: String
+        -tenKhuVuc: String
+    }
+
+    class Table {
+        <<entity>>
+        -maBan: String
+        -soBan: String
+        -trangThai: TrangThaiBan
+    }
+
+    class TrangThaiBan {
+        <<enumeration>>
+        TRONG
+        DANG_PHUC_VU
+    }
+
+    class Order {
+        <<entity>>
+        #maDon: String
+        #thoiGianTao: DateTime
+        #trangThai: TrangThaiDon
+        #tongTien: double
+        #vat: double
+        #chietKhau: double
+        +tinhTongTien() double
+    }
+
+    class OrderTaiCho {
+        <<entity>>
+        -ban: Table
+    }
+
+    class OrderMangVe {
+        <<entity>>
+        -diaChiGiao: String
+        -soDienThoaiKhach: String
+    }
+
+    class TrangThaiDon {
+        <<enumeration>>
+        DANG_PHUC_VU
+        CHO_THANH_TOAN
+        DA_THANH_TOAN
+        DA_HUY
+    }
+
+    class OrderItem {
+        <<entity>>
+        -soLuong: int
+        -donGia: double
+        -ghiChu: String
+        -tuyChon: String
+    }
+
+    class LyDoHuyDon {
+        <<enumeration>>
+        DOI_TRA_LAI
+        THEM_NHAM_DON_HANG
+        KHACH_BAO_HUY
+        LY_DO_KHAC
+    }
+
+    class MenuItem {
+        <<entity>>
+        %% Lop tham chieu tu package Menu
+    }
+}
+
+TableSelectionUI --> OrderController : goi xu ly
+OrderTakingUI --> OrderController : goi xu ly
+OrderManagementUI --> OrderController : goi xu ly
+OrderController --> Order : thao tac tren don
+OrderController --> Table : gan ban / chuyen ban
+OrderController ..> LyDoHuyDon : ap dung khi huy
+Area "1" -- "*" Table : quan ly
+Table --> TrangThaiBan
+Order <|-- OrderTaiCho
+Order <|-- OrderMangVe
+Order --> TrangThaiDon
+Order "1" *-- "1..*" OrderItem : gom mon
+OrderItem "*" --> "1" MenuItem : tham chieu
+OrderTaiCho "1" -- "1" Table : phuc vu dung 1 ban

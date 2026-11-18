@@ -1,0 +1,42 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA PHAN TICH: CHUC NANG XOA COMBO
+%% ===================================================================
+
+class QuanLy {
+    <<actor>>
+}
+
+class MenuUI {
+    <<boundary>>
+    monDangChon
+    danhSachMonHienThi
+}
+
+class MenuController {
+    <<control>>
+}
+
+class MenuItem {
+    <<abstract>>
+    <<entity>>
+    maMon
+    tenMon
+    dangKinhDoanh
+}
+
+class Combo {
+    <<entity>>
+    soLuongNguoiAn
+}
+
+class ComboDetail {
+    <<entity>>
+    soLuong
+}
+
+QuanLy --> MenuUI : xac nhan xoa combo
+MenuUI --> MenuController : yeu cau xoa combo
+MenuController --> Combo : ngung kinh doanh / xoa
+MenuItem <|-- Combo : la mot
+Combo "1" *-- "1..*" ComboDetail : gom

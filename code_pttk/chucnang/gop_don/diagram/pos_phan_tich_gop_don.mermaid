@@ -1,0 +1,37 @@
+classDiagram
+namespace OrderPackage {
+
+    class Table {
+        maBan
+        soBan
+        trangThai
+    }
+
+    class Order {
+        maDon
+        thoiGianTao
+        trangThai
+        tongTien
+        vat
+        chietKhau
+    }
+
+    class OrderTaiCho {
+        ban
+    }
+
+
+    class OrderItem {
+        soLuong
+        donGia
+        ghiChu
+        tuyChon
+    }
+}
+
+
+Order <|-- OrderTaiCho
+
+Order "1" *-- "1..*" OrderItem : gom mon
+OrderTaiCho "1" -- "1" Table : phuc vu dung 1 ban
+

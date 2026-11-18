@@ -1,0 +1,35 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA THIET KE: CHUC NANG XOA COMBO
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity C as Combo: MenuItem
+
+QL ->> UI: Chọn Combo và bấm nút "Xóa"
+activate UI
+UI -->> QL: Hiển thị dialog xác nhận "Bạn có chắc chắn muốn xóa Combo này?"
+deactivate UI
+
+QL ->> UI: Bấm xác nhận "Đồng ý"
+activate UI
+UI ->> CTRL: xoaCombo(maCombo: String)
+activate CTRL
+
+CTRL ->> CTRL: kiemTraRangBuocCombo(maCombo)
+alt Combo đang nằm trong đơn hàng đang phục vụ
+    CTRL -->> UI: return false
+    UI -->> QL: Hiển thị cảnh báo "Không thể xóa Combo đang trong đơn phục vụ"
+else Cho phép xóa
+    CTRL ->> C: setDangKinhDoanh(false)
+    activate C
+    C -->> CTRL: return void
+    deactivate C
+    CTRL -->> UI: return true
+    UI ->> UI: hienThiDanhSachMon()
+    UI -->> QL: Hiển thị thông báo "Xóa Combo thành công" & cập nhật danh sách
+end
+deactivate CTRL
+deactivate UI

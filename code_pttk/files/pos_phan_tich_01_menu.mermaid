@@ -1,0 +1,43 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA PHAN TICH - PACKAGE: MENU
+%% Chi gom thuc the mien nghiep vu, khong method, thuoc tinh rut gon
+%% ===================================================================
+
+namespace MenuPackage {
+    class Category {
+        maDanhMuc
+        tenDanhMuc
+        moTa
+    }
+
+    class MenuItem {
+        <<abstract>>
+        maMon
+        tenMon
+        gia
+        hinhAnh
+        dangKinhDoanh
+    }
+
+    class Dish {
+        loaiMon
+        moTa
+    }
+
+    class Combo {
+        soLuongNguoiAn
+    }
+
+    class ComboDetail {
+        soLuong
+        ghiChu
+    }
+}
+
+Category "1" -- "*" MenuItem : phan loai
+MenuItem <|-- Dish : la mot
+MenuItem <|-- Combo : la mot
+
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

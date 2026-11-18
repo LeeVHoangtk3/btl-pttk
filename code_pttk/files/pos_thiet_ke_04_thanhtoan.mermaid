@@ -1,0 +1,77 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA THIET KE - PACKAGE: THANH TOAN
+%% ===================================================================
+
+namespace ThanhToanPackage {
+    class PaymentUI {
+        <<boundary>>
+        +hienThiDanhSachDonChoThanhToan()
+        +chonPhuongThucThanhToan()
+        +nhapSoTienNhan(soTien: double)
+    }
+
+    class PaymentController {
+        <<control>>
+        +chonDonThanhToan(don: Order) Payment
+        +chonPhuongThuc(loaiPt: String) Payment
+        +xuLyThanhToan(payment: Payment) bool
+        +xoaDonSauThanhToan(don: Order) bool
+        +luuLichSu(payment: Payment) bool
+    }
+
+    class Payment {
+        <<entity>>
+        #maThanhToan: String
+        #tongTienDon: double
+        #thoiGianThanhToan: DateTime
+        +xacNhanThanhToan() bool
+    }
+
+    class PaymentTienMat {
+        <<entity>>
+        -tienDaNhan: double
+        -tienThua: double
+        -tienTip: double
+        +tinhTienThua() double
+    }
+
+    class PaymentThe {
+        <<entity>>
+        -loaiThe: LoaiThe
+        -maGiaoDich: String
+        +xacThucThe() bool
+    }
+
+    class LoaiThe {
+        <<enumeration>>
+        VISA
+        MASTER
+        JCB
+        ATM
+    }
+
+    class PaymentLog {
+        <<entity>>
+        -maLog: String
+        -maDon: String
+        -tongTien: double
+        -thoiGian: DateTime
+        -nhanVien: String
+    }
+
+    class Order {
+        <<entity>>
+        %% Lop tham chieu tu package Order
+    }
+}
+
+PaymentUI --> PaymentController : goi xu ly
+PaymentController --> Payment : khoi tao
+PaymentController --> Order : cap nhat trang thai / xoa
+PaymentController --> PaymentLog : ghi log
+Payment <|-- PaymentTienMat
+Payment <|-- PaymentThe
+PaymentThe --> LoaiThe
+Order "1" -- "0..1" Payment : duoc thanh toan
+Payment "1" --> "1" PaymentLog : luu log

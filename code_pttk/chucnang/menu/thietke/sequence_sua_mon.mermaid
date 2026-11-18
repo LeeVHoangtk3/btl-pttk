@@ -1,0 +1,40 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA THIET KE: CHUC NANG SUA MON LE
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity D as Dish: MenuItem
+
+QL ->> UI: Chọn món cần sửa trên giao diện
+activate UI
+UI ->> UI: hienThiFormThemSuaMon()
+UI -->> QL: Hiển thị form chỉnh sửa thông tin món
+deactivate UI
+
+QL ->> UI: Chỉnh sửa thông tin (tên, giá, mô tả, tình trạng kinh doanh) & bấm "Lưu"
+activate UI
+UI ->> CTRL: suaMon(item: Dish)
+activate CTRL
+
+CTRL ->> D: getMaMon()
+activate D
+D -->> CTRL: return maMon
+deactivate D
+
+CTRL ->> CTRL: kiemTraTonTaiMon(maMon)
+alt Món không tồn tại
+    CTRL -->> UI: return false
+    UI -->> QL: Thông báo "Không tìm thấy món ăn để cập nhật"
+else Món tồn tại & dữ liệu hợp lệ
+    CTRL ->> D: setTenMon(item.getTenMon())
+    CTRL ->> D: setGia(item.getGia())
+    CTRL ->> D: setDangKinhDoanh(item.dangKinhDoanh)
+    CTRL -->> UI: return true
+    UI ->> UI: hienThiDanhSachMon()
+    UI -->> QL: Thông báo "Cập nhật thông tin món thành công"
+end
+deactivate CTRL
+deactivate UI

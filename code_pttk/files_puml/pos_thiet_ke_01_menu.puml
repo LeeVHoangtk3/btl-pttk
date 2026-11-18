@@ -1,0 +1,130 @@
+@startuml
+
+' =========================
+' STYLE (VISUAL PARADIGM)
+' =========================
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' Khoang cach deu giua cac bang
+skinparam nodesep 65
+skinparam ranksep 65
+
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam defaultFontColor #111111
+
+' Chi ten class in dam
+skinparam classFontStyle bold
+
+skinparam class {
+   BackgroundColor #7ACFF5
+   BorderColor #000000
+   BorderThickness 1
+
+   FontColor #111111
+   AttributeFontColor #111111
+
+   ArrowColor #000000
+   StereotypeFontColor #111111
+}
+
+skinparam package {
+   BackgroundColor #FFFFFF
+   BorderColor #000000
+   BorderThickness 1
+   FontStyle bold
+}
+
+hide circle
+
+' ===================================================================
+' CLASSES (DESIGN PHASE) - PACKAGE: MENU
+' ===================================================================
+package "MenuPackage" {
+    class MenuUI {
+       - tuKhoaTimKiem : String
+       - danhSachMonHienThi : List<MenuItem>
+       - monDangChon : MenuItem
+       - danhMucDangLoc : Category
+       --
+       + hienThiDanhSachMon() : void
+       + timKiemMon(tuKhoa: String) : void
+       + hienThiFormThemSuaMon() : void
+       + hienThiFormTaoCombo() : void
+    }
+
+    class MenuController {
+       --
+       + timKiemMon(tuKhoa: String) : List<MenuItem>
+       + themMon(item: Dish) : bool
+       + suaMon(item: Dish) : bool
+       + xoaMon(maMon: String) : bool
+       + themCombo(combo: Combo) : bool
+       + suaCombo(combo: Combo) : bool
+       + xoaCombo(maCombo: String) : bool
+    }
+
+    class Category {
+       - maDanhMuc : String
+       - tenDanhMuc : String
+       - moTa : String
+       --
+       + getMaDanhMuc() : String
+       + getTenDanhMuc() : String
+    }
+
+    abstract class MenuItem {
+       # maMon : String
+       # tenMon : String
+       # gia : double
+       # hinhAnh : String
+       # dangKinhDoanh : bool
+       --
+       + getMaMon() : String
+       + getTenMon() : String
+       + getGia() : double
+       + setDangKinhDoanh(status: bool) : void
+    }
+
+    class Dish {
+       - loaiMon : String
+       - moTa : String
+       --
+       + getLoaiMon() : String
+       + getMoTa() : String
+    }
+
+    class Combo {
+       - soLuongNguoiAn : int
+       --
+       + themMonCon(mon: Dish, soLuong: int) : void
+       + xoaMonCon(maMon: String) : void
+       + tinhGiaCombo() : double
+    }
+
+    class ComboDetail {
+       - soLuong : int
+       - ghiChu : String
+       --
+       + getSoLuong() : int
+       + getGhiChu() : String
+    }
+}
+
+' =========================
+' ASSOCIATIONS
+' =========================
+MenuUI -down-> MenuController
+MenuController -down-> MenuItem
+MenuController -down-> Category
+
+Category "1" --down- "*" MenuItem
+MenuItem <|--down- Dish
+MenuItem <|--down- Combo
+
+Combo "1" *-right- "1..*" ComboDetail
+ComboDetail "*" -right-> "1" Dish
+
+@enduml

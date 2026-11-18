@@ -1,0 +1,39 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA PHAN TICH: CHUC NANG XOA MON LE
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity D as Dish
+entity CAT as Category
+
+QL ->> UI: Chọn món và nhấn "Xóa"
+activate UI
+UI -->> QL: Hiển thị hộp thoại xác nhận xóa món
+deactivate UI
+
+QL ->> UI: Xác nhận đồng ý xóa
+activate UI
+UI ->> CTRL: Gửi yêu cầu xóa món (maMon)
+activate CTRL
+
+CTRL ->> CTRL: Kiểm tra ràng buộc món (đang trong combo / đơn hàng chưa thanh toán)
+alt Không bị ràng buộc (cho phép xóa/ngừng kinh doanh)
+    CTRL ->> D: Cập nhật trạng thái ngừng kinh doanh (dangKinhDoanh = false)
+    activate D
+    D -->> CTRL: Xác nhận cập nhật
+    deactivate D
+    CTRL ->> CAT: Loại bỏ tham chiếu món khỏi danh mục
+    activate CAT
+    CAT -->> CTRL: Xác nhận cập nhật danh mục
+    deactivate CAT
+    CTRL -->> UI: Thông báo xóa món thành công
+    UI -->> QL: Cập nhật lại giao diện, ẩn món đã xóa
+else Món đang được sử dụng trong combo/đơn hàng
+    CTRL -->> UI: Cảnh báo không thể xóa do ràng buộc
+    UI -->> QL: Hiển thị thông báo giải thích lý do không thể xóa
+end
+deactivate CTRL
+deactivate UI

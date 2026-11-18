@@ -1,0 +1,41 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA THIET KE: CHUC NANG XOA COMBO
+%% ===================================================================
+
+class MenuUI {
+    <<boundary>>
+    -monDangChon: MenuItem
+    -danhSachMonHienThi: List~MenuItem~
+    +hienThiDanhSachMon() void
+}
+
+class MenuController {
+    <<control>>
+    +xoaCombo(maCombo: String) bool
+}
+
+class MenuItem {
+    <<entity>>
+    <<abstract>>
+    #maMon: String
+    #tenMon: String
+    #dangKinhDoanh: bool
+    +getMaMon() String
+    +setDangKinhDoanh(status: bool) void
+}
+
+class Combo {
+    <<entity>>
+    -soLuongNguoiAn: int
+}
+
+class ComboDetail {
+    <<entity>>
+    -soLuong: int
+}
+
+MenuUI --> MenuController : goi xoaCombo(maCombo)
+MenuController --> Combo : setDangKinhDoanh(false)
+MenuItem <|-- Combo : la combo
+Combo "1" *-- "1..*" ComboDetail : gom

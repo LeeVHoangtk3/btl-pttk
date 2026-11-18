@@ -1,0 +1,35 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA THIET KE: CHUC NANG XOA MON LE
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity D as Dish: MenuItem
+
+QL ->> UI: Chọn món và bấm nút "Xóa"
+activate UI
+UI -->> QL: Hiển thị dialog xác nhận "Bạn có chắc chắn muốn xóa món này?"
+deactivate UI
+
+QL ->> UI: Bấm xác nhận "Đồng ý"
+activate UI
+UI ->> CTRL: xoaMon(maMon: String)
+activate CTRL
+
+CTRL ->> CTRL: kiemTraRangBuoc(maMon)
+alt Món đang nằm trong Combo hoặc Đơn hàng chưa thanh toán
+    CTRL -->> UI: return false
+    UI -->> QL: Hiển thị thông báo "Không thể xóa: Món đang được sử dụng trong hệ thống"
+else Món hợp lệ để xóa / ngừng kinh doanh
+    CTRL ->> D: setDangKinhDoanh(false)
+    activate D
+    D -->> CTRL: return void
+    deactivate D
+    CTRL -->> UI: return true
+    UI ->> UI: hienThiDanhSachMon()
+    UI -->> QL: Hiển thị thông báo "Xóa món thành công" & cập nhật danh sách
+end
+deactivate CTRL
+deactivate UI

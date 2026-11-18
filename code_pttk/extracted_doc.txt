@@ -1,0 +1,259 @@
+HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG
+KHOA CÔNG NGHỆ THÔNG TIN 1
+--------***--------
+BÁO CÁO BÀI TẬP LỚN
+PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG THÔNG TIN
+Đề tài: Hệ thống quản lý nhà hàng Thanh Hoa
+Nhóm 10
+Giảng viên hướng dẫn: Nguyễn Đình Hiến
+--- TABLE ---
+Phan Việt Bảo Nguyễn Thanh Hòa Lê Việt Hoàng Ngô Văn Phương | B23DCKH006 B23DCKH042 B23DCKH044 B23DCKH092
+--- END TABLE ---
+Bảng phân chia
+--- TABLE ---
+Thành viên | Chức năng
+Phan Việt Bảo | Tạo đơn hàng
+Nguyễn Thanh Hòa | Thanh toán
+Lê Việt Hoàng | Tạo combo
+Ngô Văn Phương | Gộp đơn hàng
+--- END TABLE ---
+Biểu đồ Use case cho hệ thống và cho các chức năng
+Hệ thống
+Quản lý menu
+Tạo đơn hàng
+Xử lý đơn
+Thanh toán
+3. Kịch bản phân tích cho các chức năng
+a. Kịch bản tạo combo
+--- TABLE ---
+STT | Mục | Nội dung
+1. | Tác nhân | Quản lý
+2. | Mô tả | Quản lý thiết lập và tạo một gói Combo món ăn mới trên hệ thống, bao gồm các thông tin chung (tên combo, giá bán, số người ăn, mô tả) và danh sách các món lẻ thành phần kèm số lượng tương ứng.
+3. | Điều kiện trước | 1. Quản lý đã đăng nhập thành công vào hệ thống với quyền hạn phù hợp. 2. Hệ thống đã có sẵn danh mục và danh sách các món lẻ (Dish) đang hoạt động/kinh doanh để chọn làm món thành phần.
+4 | Luồng sự kiện chính | 1. Quản lý truy cập vào màn hình Quản lý thực đơn (Menu). 2. Quản lý nhấn chọn chức năng Tạo Combo mới (hoặc Thêm Combo). 3. Hệ thống hiển thị biểu mẫu tạo Combo mới gồm:    - Các trường thông tin cơ bản: tên combo, giá bán, số người ăn, mô tả, ảnh đại diện (nếu có), danh sách các món lẻ đang kinh doanh để lựa chọn thành phần. 4. Quản lý nhập các thông tin chung của Combo (tên combo, giá bán, số người ăn dự kiến, mô tả). 5. Quản lý tìm kiếm hoặc tích chọn các món lẻ thành phần từ danh sách. 6. Với mỗi món lẻ được chọn, Quản lý nhập số lượng tương ứng trong combo. 7. Hệ thống tự động tính toán tổng giá trị gốc tham khảo của các món thành phần để quản lý cân đối giá combo.8. Quản lý kiểm tra lại toàn bộ thông tin và nhấn nút Lưu. 9. Hệ thống kiểm tra tính hợp lệ của dữ liệu (tên hợp lệ, giá bán > 0, đã chọn ít nhất 1 món con...). 10. Hệ thống khởi tạo sau đó hiển thị thông báo "Tạo combo thành công" và làm mới lại danh sách thực đơn hiển thị combo mới.
+5. | Luồng sự kiện phụ | - Chưa có món lẻ trong hệ thống: Nếu thực đơn chưa có món lẻ nào, hệ thống hiển thị thông báo nhắc nhở và yêu cầu tạo món ăn lẻ trước khi tạo combo. - Hủy thao tác: Quản lý nhấn nút Hủy hoặc đóng biểu mẫu bất cứ lúc nào, hệ thống sẽ hủy bỏ dữ liệu đang nhập và quay lại danh sách thực đơn mà không lưu thay đổi.- Chỉnh sửa / Xóa món thành phần khi đang tạo: Quản lý có thể tăng/giảm số lượng hoặc bấm xóa bỏ một món lẻ đã chọn khỏi bảng chi tiết combo trước khi nhấn Lưu.
+6. | Điều kiện sau | Combo mới được ghi nhận thành công vào cơ sở dữ liệu hệ thống, hiển thị trên giao diện thực đơn và sẵn sàng cho nhân viên order chọn khi phục vụ khách hàng.
+7. | Ngoại lệ | - Thiếu dữ liệu bắt buộc: Nếu để trống tên combo, giá bán hoặc số người ăn, hệ thống hiển thị cảnh báo đỏ tại các ô nhập tương ứng và không cho phép lưu. - Giá trị không hợp lệ: Nhập giá bán ≤ 0 hoặc số lượng món thành phần ≤ 0, hệ thống cảnh báo "Giá bán và số lượng món phải lớn hơn 0". - Chưa chọn món thành phần: Quản lý nhấn Lưu nhưng chưa chọn món lẻ nào, hệ thống báo lỗi "Combo phải chứa ít nhất một món ăn thành phần". - Trùng tên combo: Nếu tên combo đã tồn tại trong hệ thống, hệ thống hiển thị thông báo "Tên combo đã tồn tại, vui lòng chọn tên khác".
+--- END TABLE ---
+b. Kịch bản tạo đơn hàng:
+--- TABLE ---
+STT | Mục | Nội dung
+1. | Tác nhân | Nhân viên order
+2. | Mô tả | Nhân viên chọn khu vực, bàn phục vụ (hoặc hóa đơn có sẵn) và tiến hành thêm các món ăn/thức uống vào đơn hàng.
+3. | Điều kiện trước | Nhân viên đã đăng nhập thành công vào hệ thống.
+4 | Luồng sự kiện chính | 1. Nhân viên mở màn hình Sơ đồ / Chọn bàn. 2. Hệ thống hiển thị danh sách khu vực (Tại chỗ, Mang về, Tầng 1, Tầng 2, Tầng Trệt...). 3. Nhân viên chọn một khu vực. 4. Hệ thống hiển thị danh sách bàn tương ứng, phân biệt rõ bàn trống và bàn đang phục vụ. 5. Nhân viên chọn một bàn: -  Nếu là bàn trống:  Hệ thống khởi tạo và mở màn hình tạo đơn mới. -  Nếu bàn đã có khách:  Hệ thống hiển thị danh sách hóa đơn hiện có trên bàn để nhân viên chọn mở đơn cần xử lý. 6. Nhân viên chọn danh mục món (Thức ăn, Nước uống, Sản phẩm đóng gói...). 7. Hệ thống hiển thị danh sách các món thuộc danh mục đã chọn. 8. Nhân viên tìm kiếm hoặc chọn trực tiếp món cần thêm. 9. Nhân viên nhập số lượng. 10. Hệ thống thêm món vào đơn hàng và tự động cập nhật lại tổng tiền tạm tính. 11. Nhân viên lặp lại bước 6–10 để thêm các món khác (nếu cần). 12. Nhân viên nhấn  Lưu  để lưu tạm đơn hàng.
+5. | Luồng sự kiện phụ | -  Khu vực hết bàn trống:  Hệ thống hiển thị thông báo và không cho tạo bàn mới tại khu vực đó. -  Món hết hàng/ngừng phục vụ:  Hệ thống hiển thị cảnh báo trạng thái bên cạnh món và khóa chức năng thêm món đó vào đơn.
+6. | Điều kiện sau | Đơn hàng gắn với bàn đã chọn được lưu thành công trên hệ thống kèm danh sách món và tổng tiền tương ứng.
+7. | Ngoại lệ | Không có.
+--- END TABLE ---
+c. Kịch bản gộp đơn hàng
+--- TABLE ---
+STT | Mục | Nội dung
+1 | Tác nhân | Thu ngân (hoặc Nhân viên phục vụ)
+2 | Mô tả | Thu ngân thực hiện gộp các đơn hàng từ nhiều bàn khác nhau đang có khách về một bàn đích duy nhất và tự động tính toán lại hóa đơn tổng hợp trước khi giải phóng bàn nguồn.
+3 | Điều kiện trước | - Thu ngân đã đăng nhập thành công vào hệ thống với phân quyền hợp lệ. - Có ít nhất hai bàn đang ở trạng thái hoạt động (đang có khách, đã gọi món và chưa thanh toán).
+4 | Luồng sự kiện chính | 1. Nhân viên/Thu ngân nhấn nút  Gộp đơn hàng  từ thanh điều hướng hoặc màn hình quản lý sơ đồ bàn. 2. Hệ thống mở cửa sổ pop-up/màn hình  Gộp Đơn Hàng  với bố cục thanh tiêu đề điều hướng và 3 phân vùng chính:  Chọn bàn cần gộp ,  Chi tiết bàn đã chọn  và  Xem trước kết quả gộp . 3. Hệ thống tải danh sách toàn bộ các bàn đang có khách (đang phục vụ và chưa thanh toán) hiển thị tại cột  Chọn bàn cần gộp . Mỗi thẻ bàn gồm: tên bàn, số lượng khách và tổng tiền hiện thời. 4. Nhân viên có thể tìm nhanh số bàn qua ô nhập liệu  Tìm số bàn . 5. Nhân viên nhấp chọn các bàn cần gộp lại với nhau (chọn tối thiểu từ 2 bàn trở lên; ví dụ ở đây nhân viên chọn Bàn 1 và Bàn 3). 6. Hệ thống tự động đẩy các bàn vừa chọn sang cột giữa ( Chi tiết bàn đã chọn ), liệt kê cụ thể danh sách từng món ăn kèm số lượng tương ứng của mỗi bàn. 7. Hệ thống mặc định lấy bàn đầu tiên được chọn làm bàn đích (ở đây là BÀN 01), đồng thời thực hiện tổng hợp dữ liệu và hiển thị bảng tính tại cột bên phải ( Xem trước kết quả gộp về BÀN 01 ): - Gom các món giống nhau, tự động cộng dồn số lượng và thành tiền. - Tự động cộng tổng  Tạm tính , áp dụng mức  Giảm giá (voucher)  (nếu có) và tính ra  Tổng cộng  thực thu sau cùng. 8. Nhân viên đối soát lại toàn bộ danh sách món ăn, số lượng và tổng tiền, sau đó nhấn nút  [ Xác nhận gộp đơn hàng ]  ở góc trên bên phải. 9. Hệ thống thực thi xử lý nghiệp vụ:  - Dồn toàn bộ danh sách món và số tiền mới vào đơn hàng của bàn đích (Bàn 1).  - Đóng các đơn hàng gốc của các bàn nguồn (Bàn 3), giải phóng và chuyển trạng thái các bàn nguồn về  Bàn trống . 10. Hệ thống lưu vết nhật ký gộp đơn, hiển thị thông báo gộp đơn thành công và chuyển người dùng về màn hình Sơ đồ bàn
+5 | Luồng sự kiện phụ | 3.a.  Tìm kiếm số bàn:  Thu ngân nhập số bàn vào ô  Tìm số bàn  → Hệ thống lọc danh sách thời gian thực và chỉ hiển thị các bàn khớp từ khóa. 7.a.  Hủy thao tác:  Thu ngân nhấn nút  Hủy  ở góc trên cùng bên trái → Hệ thống đóng modal, hủy bỏ mọi lựa chọn và giữ nguyên hiện trạng của tất cả các bàn.
+6 | Điều kiện sau | - Đơn hàng tại bàn đích nhận đầy đủ danh sách món, tiền tạm tính, voucher và tổng cộng mới. - Các bàn nguồn được xóa đơn đang phục vụ và chuyển trạng thái về bàn trống sẵn sàng đón khách mới. - Lịch sử thao tác gộp đơn được ghi nhận vào hệ thống.
+7 | Ngoại lệ | 7.a.  Chưa chọn đủ số bàn tối thiểu:  Thu ngân chọn dưới 2 bàn mà nhấn  Xác nhận gộp đơn hàng  → Hệ thống vô hiệu hóa nút hoặc hiển thị cảnh báo:  "Vui lòng chọn tối thiểu 2 bàn để thực hiện gộp đơn" . 7.b.  Không tìm thấy số bàn:  Nhập số bàn không tồn tại hoặc bàn không có khách vào ô  Tìm số bàn  → Hệ thống hiển thị danh sách rỗng:  "Không tìm thấy bàn phù hợp" .
+--- END TABLE ---
+d. Kịch bản Thanh toán
+--- TABLE ---
+TT | Tên UC | Thanh toán
+1 | Tác nhân | Thu ngân
+2 | Mô tả | Thu ngân thực hiện thanh toán cho đơn hàng của khách hàng bằng phương thức thanh toán được lựa chọn.
+3 | Điều kiện trước | Thu ngân đã đăng nhập thành công vào hệ thống. Đơn hàng đã được tạo và chưa được thanh toán.
+4 | Luồng sự kiện chính | 1.  Thu ngân chọn một đơn hàng cần thanh toán. 2.  Hệ thống hiển thị thông tin đơn hàng và tổng số tiền cần thanh toán. 3.  Thu ngân chọn phương thức thanh toán: tiền mặt, chuyển khoản hoặc thẻ. 4.  Hệ thống hiển thị giao diện tương ứng với phương thức thanh toán đã chọn. 5.  Nếu thanh toán bằng tiền mặt, thu ngân nhập số tiền khách hàng đưa. 6.  Hệ thống kiểm tra số tiền và tính tiền thừa cho khách hàng. 7.  Thu ngân xác nhận thanh toán. 8.  Hệ thống lưu thông tin thanh toán và cập nhật trạng thái đơn hàng thành  Đã thanh toán . 9.  Hệ thống lưu lịch sử thanh toán và thông báo thanh toán thành công.
+5 | Luồng sự kiện phụ | 5.a.  Nếu số tiền khách đưa lớn hơn tổng tiền đơn hàng, hệ thống hiển thị số tiền thừa. 5.b.  Nếu thu ngân thay đổi phương thức thanh toán, hệ thống hiển thị lại giao diện tương ứng với phương thức mới.
+6 | Điều kiện sau | Đơn hàng được cập nhật trạng thái  Đã thanh toán . Thông tin thanh toán được lưu vào hệ thống và lịch sử thanh toán được ghi nhận.
+7 | Ngoại lệ | 7.a.  Đơn hàng đã được thanh toán → hệ thống thông báo và không thực hiện thanh toán lại. 7.b.  Số tiền khách đưa nhỏ hơn tổng tiền đơn hàng → hệ thống thông báo số tiền không đủ và yêu cầu nhập lại. 7.c.  Thanh toán bằng thẻ hoặc chuyển khoản thất bại → hệ thống thông báo thanh toán thất bại và yêu cầu thu ngân thực hiện lại hoặc chọn phương thức khác.
+--- END TABLE ---
+4. Kịch bản và thiết kế giao diện cho các chức năng
+a. Tạo combo
+1. Quản lý truy cập vào màn hình Quản lý thực đơn (Menu).
+2. Quản lý nhấn chọn chức năng Tạo Combo mới (hoặc Thêm Combo).
+Giao diện Menu – thao tác tạo Combo
+--- TABLE ---
+MÀN HÌNH | QUẢN LÝ THỰC ĐƠN (MENU)
+Danh mục | Món lẻ | Combo | Đồ uống
+Danh sách | Mì Ý Bò Bằm – 85.000đ Cơm Gà – 65.000đ Nước Cam – 25.000đ
+Thao tác | [ + Tạo món mới ]   [ + Tạo Combo ]
+--- END TABLE ---
+3. Hệ thống hiển thị biểu mẫu tạo Combo mới gồm: Tên combo, giá bán, số người ăn dự kiến, mô tả, ảnh đại diện (nếu có) và danh sách các món lẻ đang kinh doanh.
+Biểu mẫu Tạo Combo mới
+--- TABLE ---
+Tên combo | Combo Gia Đình
+Giá bán | 299.000 đ
+Số người ăn | 3 – 4 người
+Mô tả | Mì Ý + gà + nước uống
+Ảnh đại diện | [ Chọn ảnh ]
+Thành phần | Danh sách món lẻ để tìm kiếm và lựa chọn
+--- END TABLE ---
+4. Quản lý nhập các thông tin chung của Combo: tên combo, giá bán, số người ăn dự kiến và mô tả.
+5. Quản lý tìm kiếm hoặc tích chọn các món lẻ thành phần.
+Danh sách món lẻ – chọn thành phần Combo
+--- TABLE ---
+Tìm kiếm | [ mì ] .................................. [ Tìm ]
+Chọn | ☑ Mì Ý Bò Bằm – 85.000 đ - SL: 1
+Chọn | ☑ Gà Nướng – 120.000 đ - SL: 1
+Chọn | ☐ Cơm Chiên – 60.000 đ
+Chọn | ☑ Nước Cam – 25.000 đ - SL: 2
+Đã chọn | 3 món
+--- END TABLE ---
+6. Với mỗi món lẻ được chọn, Quản lý nhập số lượng tương ứng trong Combo (ví dụ: 1 phần mì Ý, 2 ly nước).
+7. Hệ thống tự động tính toán tổng giá trị gốc tham khảo của các món thành phần để Quản lý cân đối giá Combo.
+8. Quản lý kiểm tra lại toàn bộ thông tin và nhấn nút Lưu.
+9. Hệ thống kiểm tra tính hợp lệ của dữ liệu: tên hợp lệ, giá bán > 0, đã chọn ít nhất 1 món con và số lượng các món thành phần hợp lệ.
+10. Hệ thống khởi tạo sau đó hiển thị thông báo “Tạo combo thành công” và làm mới danh sách thực đơn để hiển thị Combo mới.
+Menu sau khi tạo Combo thành công
+--- TABLE ---
+Thông báo | ✓ Tạo combo thành công
+Danh sách Menu | Mì Ý Bò Bằm – 85.000 đ Gà Nướng – 120.000 đ Combo Gia Đình – 299.000 đ
+Trạng thái Combo | Đang kinh doanh
+Thao tác | [ Xem ]   [ Sửa ]   [ Xóa ]
+--- END TABLE ---
+b. Tạo đơn hàng
+1. Nhân viên mở màn hình Sơ đồ / Chọn bàn.
+2. Hệ thống hiển thị danh sách khu vực (Tại chỗ, Mang về, Tầng 1, Tầng 2, Tầng Trệt...).
+3. Nhân viên chọn một khu vực.
+4. Hệ thống hiển thị danh sách bàn tương ứng, phân biệt rõ bàn trống và bàn đang phục vụ.
+--- TABLE ---
+Chọn bàn
+Tại chỗ | Bàn 0 | Bàn 1 | Bàn 2 | Bàn 3 | Bàn 4
+Mang về | Bàn 5 | Bàn 6 | Bàn 7 | Bàn 8 | Bàn 9
+Tầng 1 | (trống) | (trống) | (trống) | (trống) | (trống)
+Tầng 2 | 
+--- END TABLE ---
+5. Nhân viên chọn một bàn
+- Nếu là bàn trống: Hệ thống khởi tạo và mở màn hình tạo đơn mới.
+- Nếu bàn đã có khách: Hệ thống hiển thị danh sách hóa đơn hiện có trên bàn để nhân viên chọn mở đơn cần xử lý.
+6. Nhân viên chọn danh mục món (Thức ăn, Nước uống, Sản phẩm đóng gói...).
+--- TABLE ---
+Gọi món
+Danh mục | Danh sách món (Tên món — Giá) | Giỏ hàng
+Thức ăn | Cơm chay — 50.000đ | Cơm chay  x1
+Nước uống | Cơm gà — 200.000đ | Kem  x1
+Sản phẩm đóng gói | Kem — 100.000đ | Tổng tiền: 350.000đ
+Khác | Trái cây — 130.000đ | [ Lưu ]   [ Thanh toán ]
+--- END TABLE ---
+7. Hệ thống hiển thị danh sách các món thuộc danh mục đã chọn.
+8. Nhân viên chọn trực tiếp món cần thêm.
+9. Nhân viên nhập số lượng, chọn tùy chọn hoặc thêm ghi chú cho món (nếu có).
+--- TABLE ---
+Số lượng | 2
+ | Xác nhận
+--- END TABLE ---
+10. Hệ thống thêm món vào đơn hàng và tự động cập nhật lại tổng tiền tạm tính.
+11. Nhân viên lặp lại bước 6–10 để thêm các món khác (nếu cần).
+12. Nhân viên nhấn Lưu để lưu tạm đơn hàng, trở về màn hình chính
+c. Gộp đơn hàng
+1. Nhân viên/Thu ngân nhấn nút Gộp đơn hàng từ thanh điều hướng hoặc màn hình quản lý sơ đồ bàn.
+2. Hệ thống mở cửa sổ pop-up/màn hình Gộp Đơn Hàng với bố cục thanh tiêu đề điều hướng và 3 phân vùng chính: Chọn bàn cần gộp, Chi tiết bàn đã chọn và Xem trước kết quả gộp.
+--- TABLE ---
+[ Hủy ] | Gộp Đơn Hàng | [ Xác nhận gộp đơn hàng ]
+--- END TABLE ---
+3. Hệ thống tải danh sách toàn bộ các bàn đang có khách (đang phục vụ và chưa thanh toán) hiển thị tại cột Chọn bàn cần gộp. Mỗi thẻ bàn gồm: tên bàn, số lượng khách và tổng tiền hiện thời.
+4. Nhân viên có thể tìm nhanh số bàn qua ô nhập liệu Tìm số bàn.
+--- TABLE ---
+Chọn bàn cần gộp
+Tìm số bàn:  [ Tìm số bàn... ]
+Bàn 1 4 khách | 900.000đ
+Bàn 7 2 khách | 300.000đ
+Bàn 3 1 khách | 360.000đ
+Bàn 4 4 khách | 500.000đ
+--- END TABLE ---
+5. Nhân viên nhấp chọn các bàn cần gộp lại với nhau (chọn tối thiểu từ 2 bàn trở lên; ví dụ ở đây nhân viên chọn Bàn 1 và Bàn 3).
+6. Hệ thống tự động đẩy các bàn vừa chọn sang cột giữa (Chi tiết bàn đã chọn), liệt kê cụ thể danh sách từng món ăn kèm số lượng tương ứng của mỗi bàn.
+--- TABLE ---
+Chi tiết bàn đã chọn
+Bàn 1 • Lẩu thái x 1 • Bò nhúng dấm x 1
+Bàn 3 • Bia Tiger x 10 • Đậu phộng rang x 2
+--- END TABLE ---
+7. Hệ thống mặc định lấy bàn đầu tiên được chọn làm bàn đích (ở đây là BÀN 01), đồng thời thực hiện tổng hợp dữ liệu và hiển thị bảng tính tại cột bên phải (Xem trước kết quả gộp về BÀN 01):
+Gom các món giống nhau, tự động cộng dồn số lượng và thành tiền.
+Tự động cộng tổng Tạm tính, áp dụng mức Giảm giá (voucher) (nếu có) và tính ra Tổng cộng thực thu sau cùng.
+--- TABLE ---
+Xem trước kết quả gộp về BÀN 01 | 
+Lẩu thái x 1 | 500.000đ
+Bò nhúng dấm x 1 | 400.000đ
+Đậu phộng rang x 2 | 60.000đ
+Bia Tiger x 10 | 300.000đ
+Tạm tính | 1.260.000đ
+Giảm giá (voucher) | 60.000đ
+Tổng cộng | 1.200.000đ
+--- END TABLE ---
+8. Nhân viên đối soát lại toàn bộ danh sách món ăn, số lượng và tổng tiền:
+Trường hợp hủy bỏ: Nhân viên nhấn nút [ Hủy ] ở góc trên bên trái; hệ thống đóng giao diện gộp đơn và giữ nguyên hiện trạng của tất cả các bàn.
+Trường hợp đồng ý gộp: Nhân viên nhấn nút [ Xác nhận gộp đơn hàng ] ở góc trên bên phải.
+9. Hệ thống thực thi xử lý nghiệp vụ:
+Dồn toàn bộ danh sách món và số tiền mới vào đơn hàng của bàn đích (Bàn 1).
+Đóng các đơn hàng gốc của các bàn nguồn (Bàn 3), giải phóng và chuyển trạng thái các bàn nguồn về Bàn trống.
+10. Hệ thống lưu vết nhật ký gộp đơn và chuyển người dùng về màn hình Sơ đồ bàn.
+d. Thanh toán
+Nhân viên mở màn hình Danh sách đơn chờ thanh toán.
+Hệ thống hiển thị danh sách các đơn hàng chưa thanh toán, gồm mã đơn, bàn, tổng tiền và thao tác chọn đơn.
+--- TABLE ---
+Danh sách đơn chờ thanh toán
+STT | Mã đơn | Bàn | Tổng tiền | Thao tác
+1 | HD001 | Bàn 9 | 350.000đ | [ CHỌN ]
+2 | HD002 | Bàn 5 | 520.000đ | [ CHỌN ]
+3 | HD003 | Bàn 2 | 270.000đ | [ CHỌN ]
+--- END TABLE ---
+Nhân viên chọn một đơn hàng cần thanh toán, ví dụ HD001.
+Hệ thống hiển thị thông tin đơn hàng và yêu cầu nhân viên chọn phương thức thanh toán.
+--- TABLE ---
+Thanh toán – HD001
+Mã đơn | HD001
+Bàn | Bàn 9
+Tổng tiền | 350.000đ
+Phương thức thanh toán
+[ Tiền mặt ] | [ Chuyển khoản ]
+--- END TABLE ---
+Nhân viên chọn một phương thức thanh toán.
+Nếu chọn Tiền mặt:
+Hệ thống hiển thị giao diện nhập số tiền khách đưa.
+Nhân viên nhập số tiền khách đưa và tiền tip nếu có.
+--- TABLE ---
+Thanh toán bằng tiền mặt
+Tổng tiền | 350.000đ
+Số tiền khách đưa | [ 400.000 ] đ
+Tiền thừa | 50.000đ
+Tiền tip | [ 0 ] đ
+ | [ XÁC NHẬN ]
+--- END TABLE ---
+Hệ thống kiểm tra số tiền khách đưa và tính tiền thừa.
+Nhân viên kiểm tra thông tin và nhấn Xác nhận.
+--- TABLE ---
+Xác nhận thanh toán
+Mã đơn | HD001
+Bàn | Bàn 9
+Tổng tiền | 350.000đ
+Phương thức | Tiền mặt
+Số tiền khách đưa | 400.000đ
+Tiền thừa | 50.000đ
+ | [ HỦY ] [ THANH TOÁN ]
+--- END TABLE ---
+Hệ thống xử lý thanh toán.
+Nếu thanh toán thành công, hệ thống lưu thông tin thanh toán và lưu lịch sử thanh toán.
+Hệ thống cập nhật trạng thái đơn hàng thành Đã thanh toán và thông báo kết quả.
+--- TABLE ---
+Thanh toán thành công!
+Mã đơn | HD001
+Bàn | Bàn 9
+Tổng tiền | 350.000đ
+Phương thức | Tiền mặt
+Tiền thừa | 50.000đ
+ | [ ĐÓNG ]
+--- END TABLE ---
+5. Biểu đồ lớp thực thể phân tích cho hệ thống và cho các chức năng
+Hệ thống
+Quản lý menu
+Tạo đơn hàng
+Xử lý đơn
+Thanh toán
+6. Biểu đồ lớp thực thể thiết kế cho hệ thống và cho các chức năng
+Hệ thống
+Quản lý menu
+Tạo đơn hàng
+Gộp đơn hàng
+Thanh toán

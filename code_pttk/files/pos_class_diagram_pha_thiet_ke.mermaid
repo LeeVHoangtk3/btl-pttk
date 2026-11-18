@@ -1,0 +1,272 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA THIET KE (DESIGN)
+%% Day du Boundary - Control - Entity, kieu du lieu, visibility,
+%% phuong thuc va cac lop enumeration
+%% ===================================================================
+
+%% ===================================================================
+%% NHOM 1: MENU (Da cap nhat lop Dish & chuan hoa Combo)
+%% ===================================================================
+namespace MenuPackage {
+    class MenuUI {
+        <<boundary>>
+        +hienThiDanhSachMon()
+        +timKiemMon(tuKhoa: String)
+        +hienThiFormThemSuaMon()
+        +hienThiFormThemSuaCombo()
+    }
+
+    class MenuController {
+        <<control>>
+        +themMon(item: Dish) bool
+        +suaMon(item: Dish) bool
+        +xoaMon(maMon: String) bool
+        +themCombo(combo: Combo) bool
+        +suaCombo(combo: Combo) bool
+        +xoaCombo(maCombo: String) bool
+    }
+
+    class Category {
+        <<entity>>
+        -maDanhMuc: String
+        -tenDanhMuc: String
+        -moTa: String
+        +getTenDanhMuc() String
+    }
+
+    class MenuItem {
+        <<entity>>
+        <<abstract>>
+        #maMon: String
+        #tenMon: String
+        #gia: double
+        #hinhAnh: String
+        #dangKinhDoanh: bool
+        +getGia() double
+        +getTenMon() String
+    }
+
+    class Dish {
+        <<entity>>
+        -loaiMon: String
+        -moTa: String
+        +getLoaiMon() String
+        +getMoTa() String
+    }
+
+    class Combo {
+        <<entity>>
+        -soLuongNguoiAn: int
+        +themMonCon(mon: Dish, soLuong: int)
+        +xoaMonCon(maMon: String)
+        +tinhGiaCombo() double
+    }
+
+    class ComboDetail {
+        <<entity>>
+        -soLuong: int
+        -ghiChu: String
+        +getSoLuong() int
+    }
+}
+
+MenuUI --> MenuController : goi xu ly
+MenuController --> Category : quan ly
+MenuController --> MenuItem : quan ly
+Category "1" -- "*" MenuItem : thuoc danh muc
+MenuItem <|-- Dish : la mot
+MenuItem <|-- Combo : la mot
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : mon con
+
+
+%% ===================================================================
+%% NHOM 2: ORDER (chon ban/loai don -> dat mon -> tao don)
+%% ===================================================================
+namespace OrderPackage {
+    class TableSelectionUI {
+        <<boundary>>
+        +hienThiSoDoBan()
+        +chonKhuVuc(khu: Area)
+        +chonMotBan(ban: Table)
+        +chonNhieuBan(danhSachBan: List~Table~)
+    }
+
+    class OrderTakingUI {
+        <<boundary>>
+        +hienThiThucDon()
+        +chonMon(item: MenuItem)
+        +xacNhanDatMon()
+    }
+
+    class OrderManagementUI {
+        <<boundary>>
+        +hienThiMenuTuyChon()
+        +hienThiFormHuyDon()
+    }
+
+    class OrderController {
+        <<control>>
+        +xacDinhLoaiDon(loai: String) Order
+        +ganBan(don: OrderTaiCho, ban: Table) bool
+        +themMonVaoDon(don: Order, item: MenuItem, soLuong: int) bool
+        +taoDon(don: Order) bool
+        +gopHoaDon(donA: Order, donB: Order) Order
+        +tachHoaDon(don: Order) Order
+        +huyDon(don: Order, lyDo: LyDoHuyDon) bool
+        +diChuyenBan(don: OrderTaiCho, banMoi: Table) bool
+    }
+
+    class Area {
+        <<entity>>
+        -maKhuVuc: String
+        -tenKhuVuc: String
+    }
+
+    class Table {
+        <<entity>>
+        -maBan: String
+        -soBan: String
+        -trangThai: TrangThaiBan
+    }
+
+    class TrangThaiBan {
+        <<enumeration>>
+        TRONG
+        DANG_PHUC_VU
+    }
+
+    class Order {
+        <<entity>>
+        #maDon: String
+        #thoiGianTao: DateTime
+        #trangThai: TrangThaiDon
+        #tongTien: double
+        #vat: double
+        #chietKhau: double
+        +tinhTongTien() double
+    }
+
+    class OrderTaiCho {
+        <<entity>>
+        -ban: Table
+    }
+
+    class OrderMangVe {
+        <<entity>>
+        -diaChiGiao: String
+        -soDienThoaiKhach: String
+    }
+
+    class TrangThaiDon {
+        <<enumeration>>
+        DANG_PHUC_VU
+        CHO_THANH_TOAN
+        DA_THANH_TOAN
+        DA_HUY
+    }
+
+    class OrderItem {
+        <<entity>>
+        -soLuong: int
+        -donGia: double
+        -ghiChu: String
+        -tuyChon: String
+    }
+
+    class LyDoHuyDon {
+        <<enumeration>>
+        DOI_TRA_LAI
+        THEM_NHAM_DON_HANG
+        KHACH_BAO_HUY
+        LY_DO_KHAC
+    }
+}
+
+TableSelectionUI --> OrderController : goi xu ly
+OrderTakingUI --> OrderController : goi xu ly
+OrderManagementUI --> OrderController : goi xu ly
+OrderController --> Order : thao tac tren don
+OrderController --> Table : gan ban / chuyen ban
+OrderController ..> LyDoHuyDon : ap dung khi huy
+Area "1" -- "*" Table : quan ly
+Table --> TrangThaiBan
+Order <|-- OrderTaiCho
+Order <|-- OrderMangVe
+Order --> TrangThaiDon
+Order "1" *-- "1..*" OrderItem : gom mon
+OrderItem "*" --> "1" MenuItem : tham chieu
+OrderTaiCho "1" -- "1" Table : phuc vu dung 1 ban
+
+
+%% ===================================================================
+%% NHOM 4: THANH TOAN
+%% ===================================================================
+namespace ThanhToanPackage {
+    class PaymentUI {
+        <<boundary>>
+        +hienThiDanhSachDonChoThanhToan()
+        +chonPhuongThucThanhToan()
+        +nhapSoTienNhan(soTien: double)
+    }
+
+    class PaymentController {
+        <<control>>
+        +chonDonThanhToan(don: Order) Payment
+        +chonPhuongThuc(loaiPt: String) Payment
+        +xuLyThanhToan(payment: Payment) bool
+        +xoaDonSauThanhToan(don: Order) bool
+        +luuLichSu(payment: Payment) bool
+    }
+
+    class Payment {
+        <<entity>>
+        #maThanhToan: String
+        #tongTienDon: double
+        #thoiGianThanhToan: DateTime
+        +xacNhanThanhToan() bool
+    }
+
+    class PaymentTienMat {
+        <<entity>>
+        -tienDaNhan: double
+        -tienThua: double
+        -tienTip: double
+        +tinhTienThua() double
+    }
+
+    class PaymentThe {
+        <<entity>>
+        -loaiThe: LoaiThe
+        -maGiaoDich: String
+        +xacThucThe() bool
+    }
+
+    class LoaiThe {
+        <<enumeration>>
+        VISA
+        MASTER
+        JCB
+        ATM
+    }
+
+    class PaymentLog {
+        <<entity>>
+        -maLog: String
+        -maDon: String
+        -tongTien: double
+        -thoiGian: DateTime
+        -nhanVien: String
+    }
+}
+
+PaymentUI --> PaymentController : goi xu ly
+PaymentController --> Payment : khoi tao
+PaymentController --> Order : cap nhat trang thai / xoa
+PaymentController --> PaymentLog : ghi log
+Payment <|-- PaymentTienMat
+Payment <|-- PaymentThe
+PaymentThe --> LoaiThe
+Order "1" -- "0..1" Payment : duoc thanh toan
+Payment "1" --> "1" PaymentLog : luu log

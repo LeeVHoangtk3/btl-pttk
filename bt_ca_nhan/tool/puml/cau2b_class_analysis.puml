@@ -1,0 +1,107 @@
+@startuml
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 65
+skinparam ranksep 65
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam classFontStyle bold
+
+skinparam class {
+    BackgroundColor #7ACFF5
+    BorderColor #000000
+    BorderThickness 1.2
+    FontColor #000000
+    AttributeFontColor #000000
+    ArrowColor #000000
+}
+
+hide circle
+
+class "NhanVien" as NhanVien <<entity>> {
+    - maNV: String
+    - hoTen: String
+    - phongBan: String
+    - chucVu: String
+    - email: String
+    - sdt: String
+    --
+    + themMonHoc(): boolean
+    + capNhatMonHoc(): boolean
+    + nhapDiem(): boolean
+}
+
+class "MonHoc" as MonHoc <<entity>> {
+    - maMon: String
+    - tenMon: String
+    - soTinChi: int
+    - soTietLT: int
+    - soTietTH: int
+    - heSo: float
+    --
+    + getMaMon(): String
+    + getSoTinChi(): int
+    + kiemTraHopLe(): boolean
+}
+
+class "LopHocPhan" as LopHocPhan <<entity>> {
+    - maLopHP: String
+    - hocKy: int
+    - namHoc: String
+    - giangVien: String
+    - phongHoc: String
+    - lichHoc: String
+    - siSoToiDa: int
+    - siSoHienTai: int
+    --
+    + conChoTrong(): boolean
+    + tangSiSo(): void
+    + giamSiSo(): void
+}
+
+class "SinhVien" as SinhVien <<entity>> {
+    - maSV: String
+    - hoTen: String
+    - ngaySinh: Date
+    - gioiTinh: String
+    - lop: String
+    - email: String
+    - soDienThoai: String
+    --
+    + getMaSV(): String
+    + dangKyMonHoc(): boolean
+    + xemKetQuaHocTap(): List
+}
+
+class "DangKy" as DangKy <<entity>> {
+    - maDK: String
+    - ngayDangKy: Date
+    - trangThai: String
+    --
+    + xacNhanDangKy(): boolean
+    + huyDangKy(): boolean
+}
+
+class "Diem" as Diem <<entity>> {
+    - maDiem: String
+    - diemChuyenCan: float
+    - diemGiuaKy: float
+    - diemThucHanh: float
+    - diemCuoiKy: float
+    - diemTongKet: float
+    - diemChu: String
+    --
+    + tinhDiemTongKet(): float
+    + quyDoiDiemChu(): String
+}
+
+NhanVien "1" -right- "1..*" MonHoc : quản lý >
+MonHoc "1" -right- "1..*" LopHocPhan : mở lớp >
+SinhVien "1" -right- "*" DangKy : thực hiện >
+DangKy "*" -up- "1" LopHocPhan : thuộc về >
+SinhVien "1" -- "*" Diem : kết quả học tập >
+LopHocPhan "1" -down- "1..*" Diem : đánh giá >
+
+center footer Powered By Visual Paradigm Community Edition
+@enduml

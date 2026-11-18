@@ -1,0 +1,138 @@
+@startuml
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 55
+skinparam ranksep 55
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam classFontStyle bold
+
+skinparam class {
+    BackgroundColor #7ACFF5
+    BorderColor #000000
+    BorderThickness 1.2
+    FontColor #000000
+    AttributeFontColor #000000
+    ArrowColor #000000
+}
+
+hide circle
+
+package "Ca sử dụng 1: Thêm Môn học vào Danh sách môn học" {
+    class "ThemMonHocUI" as ThemMonHocUI <<boundary>> {
+        - txtMaMon: TextField
+        - txtTenMon: TextField
+        - txtSoTinChi: TextField
+        - txtSoTietLT: TextField
+        - txtSoTietTH: TextField
+        - btnLuu: Button
+        --
+        + hienThiFormThemMon(): void
+        + docDuLieuForm(): MonHocDTO
+        + hienThiThongBao(msg: String): void
+    }
+
+    class "ThemMonHocController" as ThemMonHocController <<control>> {
+        - monHocDAO: MonHocDAO
+        - uiThemMon: ThemMonHocUI
+        --
+        + moLuotThemMon(): void
+        + themMonHoc(dto: MonHocDTO): boolean
+        + kiemTraHopLe(dto: MonHocDTO): boolean
+        + kiemTraTrungMa(maMon: String): boolean
+    }
+
+    class "MonHoc" as MonHoc <<entity>> {
+        - maMon: String
+        - tenMon: String
+        - soTinChi: int
+        - soTietLT: int
+        - soTietTH: int
+        - heSo: float
+        --
+        + getMaMon(): String
+        + getSoTinChi(): int
+        + kiemTraHopLe(): boolean
+    }
+
+    class "MonHocDAO" as MonHocDAO <<dao>> {
+        - conn: Connection
+        --
+        + insert(m: MonHoc): boolean
+        + findByMa(ma: String): MonHoc
+        + getAll(): List<MonHoc>
+    }
+
+    ThemMonHocUI -right-> ThemMonHocController : gọi xử lý
+    ThemMonHocController -right-> MonHoc : khởi tạo
+    ThemMonHocController --> MonHocDAO : gọi lưu trữ
+    MonHocDAO ..> MonHoc : CRUD
+}
+
+package "Ca sử dụng 2: Sinh viên Đăng ký môn học" {
+    class "DangKyMonHocUI" as DangKyMonHocUI <<boundary>> {
+        - tblLopHocPhanMo: Table
+        - tblMonDaChon: Table
+        - btnDangKy: Button
+        - btnHuyDangKy: Button
+        - lblTongTinChi: Label
+        --
+        + hienThiDSLopMo(list): void
+        + getLopDuocChon(): String
+        + hienThiThongBao(msg): void
+        + capNhatBangMonDaChon(): void
+    }
+
+    class "DangKyMonHocController" as DangKyMonHocController <<control>> {
+        - lopHocPhanDAO: LopHocPhanDAO
+        - dangKyDAO: DangKyDAO
+        - uiDangKy: DangKyMonHocUI
+        --
+        + moLuotDangKy(maSV): void
+        + dangKyMonHoc(maSV, maLopHP): boolean
+        + kiemTraTienQuyet(maSV, maLopHP): bool
+        + kiemTraTrungLich(maSV, maLopHP): bool
+        + kiemTraSiSo(maLopHP): bool
+    }
+
+    class "LopHocPhan" as LopHocPhan <<entity>> {
+        - maLopHP: String
+        - maMon: String
+        - hocKy: int
+        - namHoc: String
+        - siSoToiDa: int
+        - siSoHienTai: int
+        --
+        + conChoTrong(): boolean
+        + tangSiSo(): void
+    }
+
+    class "DangKy" as DangKy <<entity>> {
+        - maDK: String
+        - maSV: String
+        - maLopHP: String
+        - ngayDangKy: Date
+        - trangThai: String
+        --
+        + xacNhan(): void
+        + huy(): void
+    }
+
+    class "DangKyDAO" as DangKyDAO <<dao>> {
+        - conn: Connection
+        --
+        + save(dk: DangKy): boolean
+        + getBySinhVien(maSV: String): List<DangKy>
+        + delete(maDK: String): boolean
+    }
+
+    DangKyMonHocUI -right-> DangKyMonHocController : gọi xử lý
+    DangKyMonHocController -right-> LopHocPhan : kiểm tra
+    LopHocPhan "1" -right- "*" DangKy
+    DangKyMonHocController --> DangKyDAO : lưu phiếu ĐK
+    DangKyDAO ..> DangKy : lưu trữ
+}
+
+center footer Powered By Visual Paradigm Community Edition
+@enduml

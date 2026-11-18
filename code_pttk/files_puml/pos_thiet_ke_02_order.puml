@@ -1,0 +1,160 @@
+@startuml
+
+' =========================
+' STYLE (VISUAL PARADIGM)
+' =========================
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' Khoang cach deu giua cac bang
+skinparam nodesep 65
+skinparam ranksep 65
+
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam defaultFontColor #111111
+
+' Chi ten class in dam
+skinparam classFontStyle bold
+
+skinparam class {
+   BackgroundColor #7ACFF5
+   BorderColor #000000
+   BorderThickness 1
+
+   FontColor #111111
+   AttributeFontColor #111111
+
+   ArrowColor #000000
+   StereotypeFontColor #111111
+}
+
+skinparam package {
+   BackgroundColor #FFFFFF
+   BorderColor #000000
+   BorderThickness 1
+   FontStyle bold
+}
+
+hide circle
+
+' ===================================================================
+' CLASSES (DESIGN PHASE) - PACKAGE: ORDER
+' (Da gop chuc nang cua DonPackage vao OrderPackage)
+' ===================================================================
+package "OrderPackage" {
+    class TableSelectionUI {
+       --
+       + hienThiSoDoBan() : void
+       + chonKhuVuc(khu: Area) : void
+       + chonMotBan(ban: Table) : void
+    }
+
+    class OrderTakingUI {
+       --
+       + hienThiThucDon() : void
+       + chonMon(item: MenuItem) : void
+       + xacNhanDatMon() : void
+    }
+
+    class OrderManagementUI {
+       --
+       + hienThiMenuTuyChon() : void
+       + hienThiFormHuyDon() : void
+    }
+
+    class OrderController {
+       --
+       + xacDinhLoaiDon(loai: String) : Order
+       + ganBan(don: OrderTaiCho, ban: Table) : bool
+       + themMonVaoDon(don: Order, item: MenuItem, soLuong: int) : bool
+       + taoDon(don: Order) : bool
+       + gopHoaDon(donA: Order, donB: Order) : Order
+       + tachHoaDon(don: Order) : Order
+       + huyDon(don: Order, lyDo: LyDoHuyDon) : bool
+       + diChuyenBan(don: OrderTaiCho, banMoi: Table) : bool
+    }
+
+    class Area {
+       - maKhuVuc : String
+       - tenKhuVuc : String
+    }
+
+    class Table {
+       - maBan : String
+       - soBan : String
+       - trangThai : TrangThaiBan
+    }
+
+    enum TrangThaiBan {
+       TRONG
+       DANG_PHUC_VU
+    }
+
+    class Order {
+       # maDon : String
+       # thoiGianTao : DateTime
+       # trangThai : TrangThaiDon
+       # tongTien : double
+       # vat : double
+       # chietKhau : double
+       --
+       + tinhTongTien() : double
+    }
+
+    class OrderTaiCho {
+       - ban : Table
+    }
+
+    class OrderMangVe {
+       - diaChiGiao : String
+       - soDienThoaiKhach : String
+    }
+
+    enum TrangThaiDon {
+       DANG_PHUC_VU
+       CHO_THANH_TOAN
+       DA_THANH_TOAN
+       DA_HUY
+    }
+
+    class OrderItem {
+       - soLuong : int
+       - donGia : double
+       - ghiChu : String
+       - tuyChon : String
+    }
+
+    enum LyDoHuyDon {
+       DOI_TRA_LAI
+       THEM_NHAM_DON_HANG
+       KHACH_BAO_HUY
+       LY_DO_KHAC
+    }
+
+    class MenuItem {
+       ' Lop tham chieu tu package Menu
+    }
+}
+
+' =========================
+' ASSOCIATIONS
+' =========================
+TableSelectionUI -down-> OrderController
+OrderTakingUI -down-> OrderController
+OrderManagementUI -down-> OrderController
+OrderController -down-> Order
+OrderController -down-> Table
+OrderController ..down..> LyDoHuyDon
+
+Area "1" --down- "*" Table
+Table -right-> TrangThaiBan
+Order <|--down- OrderTaiCho
+Order <|--down- OrderMangVe
+Order -right-> TrangThaiDon
+Order "1" *-down- "1..*" OrderItem
+OrderItem "*" -right-> "1" MenuItem
+OrderTaiCho "1" --down- "1" Table
+
+@enduml

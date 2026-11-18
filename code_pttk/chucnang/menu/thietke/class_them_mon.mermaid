@@ -1,0 +1,56 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA THIET KE: CHUC NANG THEM MON LE
+%% ===================================================================
+
+class MenuUI {
+    <<boundary>>
+    -tuKhoaTimKiem: String
+    -danhSachMonHienThi: List~MenuItem~
+    -monDangChon: MenuItem
+    -danhMucDangLoc: Category
+    +hienThiDanhSachMon() void
+    +hienThiFormThemSuaMon() void
+}
+
+class MenuController {
+    <<control>>
+    +themMon(item: Dish) bool
+}
+
+class Category {
+    <<entity>>
+    -maDanhMuc: String
+    -tenDanhMuc: String
+    -moTa: String
+    +getMaDanhMuc() String
+    +getTenDanhMuc() String
+}
+
+class MenuItem {
+    <<entity>>
+    <<abstract>>
+    #maMon: String
+    #tenMon: String
+    #gia: double
+    #hinhAnh: String
+    #dangKinhDoanh: bool
+    +getMaMon() String
+    +getTenMon() String
+    +getGia() double
+    +setDangKinhDoanh(status: bool) void
+}
+
+class Dish {
+    <<entity>>
+    -loaiMon: String
+    -moTa: String
+    +getLoaiMon() String
+    +getMoTa() String
+}
+
+MenuUI --> MenuController : goi themMon(item)
+MenuController --> Dish : tao va quan ly
+MenuController --> Category : gan vao danh muc
+Category "1" -- "*" MenuItem : phan loai
+MenuItem <|-- Dish : la mon le

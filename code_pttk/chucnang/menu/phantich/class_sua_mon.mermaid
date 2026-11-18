@@ -1,0 +1,47 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM (VOPC) - PHA PHAN TICH: CHUC NANG SUA MON LE
+%% ===================================================================
+
+class QuanLy {
+    <<actor>>
+}
+
+class MenuUI {
+    <<boundary>>
+    monDangChon
+    danhSachMonHienThi
+}
+
+class MenuController {
+    <<control>>
+}
+
+class Category {
+    <<entity>>
+    maDanhMuc
+    tenDanhMuc
+    moTa
+}
+
+class MenuItem {
+    <<abstract>>
+    <<entity>>
+    maMon
+    tenMon
+    gia
+    hinhAnh
+    dangKinhDoanh
+}
+
+class Dish {
+    <<entity>>
+    loaiMon
+    moTa
+}
+
+QuanLy --> MenuUI : chon va sua mon
+MenuUI --> MenuController : gui thong tin cap nhat
+MenuController --> Dish : cap nhat thong tin
+Category "1" -- "*" MenuItem : phan loai
+MenuItem <|-- Dish : la mot

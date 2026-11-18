@@ -1,0 +1,111 @@
+@startuml
+
+' =========================
+' STYLE (VISUAL PARADIGM)
+' =========================
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+' Khoang cach deu giua cac bang
+skinparam nodesep 65
+skinparam ranksep 65
+
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam defaultFontColor #111111
+
+' Chi ten class in dam
+skinparam classFontStyle bold
+
+skinparam class {
+   BackgroundColor #7ACFF5
+   BorderColor #000000
+   BorderThickness 1
+
+   FontColor #111111
+   AttributeFontColor #111111
+
+   ArrowColor #000000
+   StereotypeFontColor #111111
+}
+
+skinparam package {
+   BackgroundColor #FFFFFF
+   BorderColor #000000
+   BorderThickness 1
+   FontStyle bold
+}
+
+hide circle
+
+' ===================================================================
+' CLASSES (DESIGN PHASE) - CHUC NANG: GOP DON HANG
+' ===================================================================
+package "OrderPackage" {
+    class OrderManagementUI {
+       --
+       + hienThiMenuTuyChon() : void
+       + hienThiFormGopDon() : void
+    }
+
+    class OrderController {
+       --
+       + ganBan(don: OrderTaiCho, ban: Table) : bool
+       + gopHoaDon(donA: Order, donB: Order) : Order
+    }
+
+    class Table {
+       - maBan : String
+       - soBan : String
+       - trangThai : TrangThaiBan
+    }
+
+    enum TrangThaiBan {
+       TRONG
+       DANG_PHUC_VU
+    }
+
+    class Order {
+       # maDon : String
+       # thoiGianTao : DateTime
+       # trangThai : TrangThaiDon
+       # tongTien : double
+       # vat : double
+       # chietKhau : double
+       --
+       + tinhTongTien() : double
+    }
+
+    class OrderTaiCho {
+       - ban : Table
+    }
+
+    enum TrangThaiDon {
+       DANG_PHUC_VU
+       CHO_THANH_TOAN
+       DA_THANH_TOAN
+       DA_HUY
+    }
+
+    class OrderItem {
+       - soLuong : int
+       - donGia : double
+       - ghiChu : String
+       - tuyChon : String
+    }
+}
+
+' =========================
+' ASSOCIATIONS
+' =========================
+OrderManagementUI -down-> OrderController
+OrderController -down-> Order
+OrderController -down-> Table
+Table -right-> TrangThaiBan
+Order <|--down- OrderTaiCho
+Order -right-> TrangThaiDon
+Order "1" *-down- "1..*" OrderItem
+OrderTaiCho "1" --down- "1" Table
+
+@enduml

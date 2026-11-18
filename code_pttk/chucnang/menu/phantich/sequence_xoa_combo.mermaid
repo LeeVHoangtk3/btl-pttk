@@ -1,0 +1,34 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA PHAN TICH: CHUC NANG XOA COMBO
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity C as Combo
+
+QL ->> UI: Chọn Combo và nhấn "Xóa"
+activate UI
+UI -->> QL: Hiển thị hộp thoại xác nhận xóa Combo
+deactivate UI
+
+QL ->> UI: Xác nhận đồng ý xóa Combo
+activate UI
+UI ->> CTRL: Gửi yêu cầu xóa Combo (maCombo)
+activate CTRL
+
+CTRL ->> CTRL: Kiểm tra ràng buộc (đơn hàng đang phục vụ có chứa Combo này không)
+alt Cho phép xóa (hoặc ngừng kinh doanh)
+    CTRL ->> C: Chuyển trạng thái ngừng kinh doanh (dangKinhDoanh = false)
+    activate C
+    C -->> CTRL: Xác nhận cập nhật
+    deactivate C
+    CTRL -->> UI: Thông báo xóa combo thành công
+    UI -->> QL: Cập nhật danh sách hiển thị, thông báo thành công
+else Bị ràng buộc đơn hàng chưa hoàn tất
+    CTRL -->> UI: Cảnh báo không thể xóa Combo lúc này
+    UI -->> QL: Hiển thị thông báo lý do không thể xóa
+end
+deactivate CTRL
+deactivate UI

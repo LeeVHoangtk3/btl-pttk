@@ -1,0 +1,65 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA PHAN TICH: TONG THE CAC CHUC NANG MENU
+%% (Them mon, Sua mon, Xoa mon, Them combo, Sua combo, Xoa combo)
+%% ===================================================================
+
+class QuanLy {
+    <<actor>>
+}
+
+class MenuUI {
+    <<boundary>>
+    tuKhoaTimKiem
+    danhSachMonHienThi
+    monDangChon
+    danhMucDangLoc
+}
+
+class MenuController {
+    <<control>>
+}
+
+class Category {
+    <<entity>>
+    maDanhMuc
+    tenDanhMuc
+    moTa
+}
+
+class MenuItem {
+    <<abstract>>
+    <<entity>>
+    maMon
+    tenMon
+    gia
+    hinhAnh
+    dangKinhDoanh
+}
+
+class Dish {
+    <<entity>>
+    loaiMon
+    moTa
+}
+
+class Combo {
+    <<entity>>
+    soLuongNguoiAn
+}
+
+class ComboDetail {
+    <<entity>>
+    soLuong
+    ghiChu
+}
+
+QuanLy --> MenuUI : tuong tac quan ly thuc don
+MenuUI --> MenuController : goi xu ly chuc nang
+MenuController --> MenuItem : quan ly mon va combo
+MenuController --> Category : quan ly danh muc
+Category "1" -- "*" MenuItem : phan loai
+MenuItem <|-- Dish : la mon le
+MenuItem <|-- Combo : la combo
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

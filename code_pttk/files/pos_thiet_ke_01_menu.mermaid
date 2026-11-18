@@ -1,0 +1,83 @@
+classDiagram
+namespace MenuPackage {
+    class MenuUI {
+        <<boundary>>
+        -tuKhoaTimKiem: String
+        -danhSachMonHienThi: List~MenuItem~
+        -monDangChon: MenuItem
+        -danhMucDangLoc: Category
+        +hienThiDanhSachMon() void
+        +timKiemMon(tuKhoa: String) void
+        +hienThiFormThemSuaMon() void
+        +hienThiFormTaoCombo() void
+    }
+
+    class MenuController {
+        <<control>>
+        +timKiemMon(tuKhoa: String) List~MenuItem~
+        +themMon(item: Dish) bool
+        +suaMon(item: Dish) bool
+        +xoaMon(maMon: String) bool
+        +themCombo(combo: Combo) bool
+        +suaCombo(combo: Combo) bool
+        +xoaCombo(maCombo: String) bool
+    }
+
+    class Category {
+        <<entity>>
+        -maDanhMuc: String
+        -tenDanhMuc: String
+        -moTa: String
+        +getMaDanhMuc() String
+        +getTenDanhMuc() String
+    }
+
+    class MenuItem {
+        <<entity>>
+        <<abstract>>
+        #maMon: String
+        #tenMon: String
+        #gia: double
+        #hinhAnh: String
+        #dangKinhDoanh: bool
+        +getMaMon() String
+        +getTenMon() String
+        +getGia() double
+        +setDangKinhDoanh(status: bool) void
+    }
+
+    class Dish {
+        <<entity>>
+        -loaiMon: String
+        -moTa: String
+        +getLoaiMon() String
+        +getMoTa() String
+    }
+
+    class Combo {
+        <<entity>>
+        -soLuongNguoiAn: int
+        +themMonCon(mon: Dish, soLuong: int) void
+        +xoaMonCon(maMon: String) void
+        +tinhGiaCombo() double
+    }
+
+    class ComboDetail {
+        <<entity>>
+        -soLuong: int
+        -ghiChu: String
+        +getSoLuong() int
+        +getGhiChu() String
+    }
+}
+
+MenuUI --> MenuController : goi xu ly
+MenuController --> MenuItem : quan ly
+MenuController --> Category : quan ly
+
+Category "1" -- "*" MenuItem : phan loai
+MenuItem <|-- Dish : la mon le
+MenuItem <|-- Combo : la combo
+
+Combo "1" *-- "1..*" ComboDetail : gom
+ComboDetail "*" --> "1" Dish : chua mon le

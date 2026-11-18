@@ -1,0 +1,55 @@
+classDiagram
+%% ===================================================================
+%% CLASS DIAGRAM - PHA PHAN TICH - PACKAGE: ORDER
+%% (Da gop chuc nang cua DonPackage vao OrderPackage;
+%%  bo TrangThaiBan, TrangThaiDon, LyDoHuyDon)
+%% ===================================================================
+
+namespace OrderPackage {
+    class Area {
+        maKhuVuc
+        tenKhuVuc
+    }
+
+    class Table {
+        maBan
+        soBan
+        trangThai
+    }
+
+    class Order {
+        maDon
+        thoiGianTao
+        trangThai
+        tongTien
+        vat
+        chietKhau
+    }
+
+    class OrderTaiCho {
+        ban
+    }
+
+    class OrderMangVe {
+        diaChiGiao
+        soDienThoaiKhach
+    }
+
+    class OrderItem {
+        soLuong
+        donGia
+        ghiChu
+        tuyChon
+    }
+
+    class MenuItem {
+        %% Lop tham chieu tu package Menu
+    }
+}
+
+Area "1" -- "*" Table : quan ly
+Order <|-- OrderTaiCho
+Order <|-- OrderMangVe
+Order "1" *-- "1..*" OrderItem : gom mon
+OrderItem "*" --> "1" MenuItem : tham chieu
+OrderTaiCho "1" -- "1" Table : phuc vu dung 1 ban

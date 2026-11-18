@@ -1,0 +1,44 @@
+@startuml
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+skinparam node {
+    BackgroundColor #7ACFF5
+    BorderColor #000000
+    BorderThickness 1.2
+}
+
+skinparam artifact {
+    BackgroundColor #FFFFFF
+    BorderColor #000000
+    BorderThickness 1.0
+}
+
+node "<<device>>\nMáy trạm Nhân viên" as Node_NV {
+    artifact "<<artifact>>\nWeb Browser\n(ThemMonHocUI)" as Art_NV
+}
+
+node "<<device>>\nMáy trạm Sinh viên" as Node_SV {
+    artifact "<<artifact>>\nWeb Browser\n(DangKyMonHocUI)" as Art_SV
+}
+
+node "<<device>>\nJ2EE Application Server\n(Linux Ubuntu Server)" as Node_AppServer {
+    node "<<execution environment>>\nApache Tomcat 10 / WildFly" as Node_Tomcat {
+        artifact "<<artifact>>\nQLTC_System.war\n\n- ThemMonHocServlet, JSP\n- DangKyMonHocServlet, JSP\n- ThemMonHocController\n- DangKyMonHocController\n- MonHocDAO, DangKyDAO" as Art_WAR
+    }
+}
+
+node "<<device>>\nDatabase Server" as Node_DBServer {
+    node "<<database system>>\nMySQL 8.0 Server" as Node_MySQL {
+        artifact "<<artifact>>\nqltc_database.sql\n\n- tbl_MonHoc\n- tbl_SinhVien\n- tbl_LopHocPhan\n- tbl_DangKy\n- tbl_Diem" as Art_DB
+    }
+}
+
+Node_NV -- Node_AppServer : HTTPS (Port 443)
+Node_SV -- Node_AppServer : HTTPS (Port 443)
+Node_AppServer -- Node_DBServer : JDBC / TCP-IP (Port 3306)
+
+center footer Powered By Visual Paradigm Community Edition
+@enduml

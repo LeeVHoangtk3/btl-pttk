@@ -1,0 +1,48 @@
+sequenceDiagram
+%% ===================================================================
+%% SEQUENCE DIAGRAM - PHA PHAN TICH: CHUC NANG SUA MON LE
+%% ===================================================================
+autonumber
+actor QL as QuanLy
+boundary UI as MenuUI
+control CTRL as MenuController
+entity D as Dish
+entity CAT as Category
+
+QL ->> UI: Chọn món cần chỉnh sửa từ danh sách
+activate UI
+UI ->> CTRL: Yêu cầu lấy thông tin chi tiết món
+activate CTRL
+CTRL ->> D: Truy xuất thông tin món ăn
+activate D
+D -->> CTRL: Trả về thông tin món
+deactivate D
+CTRL ->> CAT: Lấy thông tin danh mục tương ứng
+activate CAT
+CAT -->> CTRL: Trả về danh mục
+deactivate CAT
+CTRL -->> UI: Trả về dữ liệu chi tiết món
+deactivate CTRL
+
+UI -->> QL: Hiển thị form chỉnh sửa kèm dữ liệu hiện tại
+deactivate UI
+
+QL ->> UI: Sửa thông tin (tên, giá, mô tả, tình trạng kinh doanh...) & nhấn "Lưu"
+activate UI
+UI ->> CTRL: Gửi thông tin cập nhật của món
+activate CTRL
+
+CTRL ->> CTRL: Kiểm tra tính hợp lệ dữ liệu sửa đổi
+alt Dữ liệu hợp lệ
+    CTRL ->> D: Cập nhật các thông tin mới vào Dish
+    activate D
+    D -->> CTRL: Xác nhận cập nhật thành công
+    deactivate D
+    CTRL -->> UI: Báo sửa món thành công
+    UI -->> QL: Thông báo thành công & cập nhật lại hiển thị
+else Dữ liệu không hợp lệ
+    CTRL -->> UI: Báo lỗi dữ liệu không hợp lệ
+    UI -->> QL: Hiển thị cảnh báo lỗi cho người dùng
+end
+deactivate CTRL
+deactivate UI

@@ -1,0 +1,77 @@
+classDiagram
+
+
+%% ===================================================================
+%% NHOM 2: ORDER (chon ban/loai don -> dat mon -> tao don)
+%% ===================================================================
+namespace OrderPackage {
+
+    class OrderManagementUI {
+        <<boundary>>
+        +hienThiMenuTuyChon()
+        +hienThiFormGopDon()
+    }
+
+    class OrderController {
+        <<control>>
+        +ganBan(don: OrderTaiCho, ban: Table) bool
+        +gopHoaDon(donA: Order, donB: Order) Order
+    }
+
+    class Table {
+        <<entity>>
+        -maBan: String
+        -soBan: String
+        -trangThai: TrangThaiBan
+    }
+
+    class TrangThaiBan {
+        <<enumeration>>
+        TRONG
+        DANG_PHUC_VU
+    }
+
+    class Order {
+        <<entity>>
+        #maDon: String
+        #thoiGianTao: DateTime
+        #trangThai: TrangThaiDon
+        #tongTien: double
+        #vat: double
+        #chietKhau: double
+        +tinhTongTien() double
+    }
+
+    class OrderTaiCho {
+        <<entity>>
+        -ban: Table
+    }
+
+
+    class TrangThaiDon {
+        <<enumeration>>
+        DANG_PHUC_VU
+        CHO_THANH_TOAN
+        DA_THANH_TOAN
+        DA_HUY
+    }
+
+    class OrderItem {
+        <<entity>>
+        -soLuong: int
+        -donGia: double
+        -ghiChu: String
+        -tuyChon: String
+    }
+
+}
+
+
+OrderManagementUI --> OrderController : goi xu ly
+OrderController --> Order : thao tac tren don
+OrderController --> Table : gan ban / chuyen ban
+Table --> TrangThaiBan
+Order <|-- OrderTaiCho
+Order --> TrangThaiDon
+Order "1" *-- "1..*" OrderItem : gom mon
+OrderTaiCho "1" -- "1" Table : phuc vu dung 1 ban
