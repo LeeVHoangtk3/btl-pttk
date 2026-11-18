@@ -11,8 +11,8 @@ Thư mục này chứa đầy đủ tài liệu, mã nguồn sơ đồ Mermaid v
 
 | STT | Pha | Tệp Mermaid | Tệp PlantUML tương ứng | Ảnh PNG kết xuất | Mô tả |
 |:---:|:---:|---|---|---|---|
-| 1 | **Phân tích** | [pos_phan_tich_gop_don.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/gop_don/diagram/pos_phan_tich_gop_don.mermaid) | [pos_phan_tich_gop_don.puml](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/gop_don/diagram/pos_phan_tich_gop_don.puml) | [pos_phan_tich_gop_don.png](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/out/chucnang/gop_don/diagram/pos_phan_tich_gop_don.png) | Sơ đồ lớp phân tích chức năng gộp đơn hàng (các bảng có đầy đủ thuộc tính, không để trống) |
-| 2 | **Thiết kế** | [pos_thiet_ke_gop_don.mermaid](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/gop_don/diagram/pos_thiet_ke_gop_don.mermaid) | [pos_thiet_ke_gop_don.puml](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/chucnang/gop_don/diagram/pos_thiet_ke_gop_don.puml) | [pos_thiet_ke_gop_don.png](file:///D:/CODE%20PTIT/PTTKHTTT/BTL/code/out/chucnang/gop_don/diagram/pos_thiet_ke_gop_don.png) | Sơ đồ lớp thiết kế chức năng gộp đơn hàng (BCE, phương thức gopHoaDon, ganBan; đầy đủ TrangThaiBan, TrangThaiDon) |
+| 1 | **Phân tích** | [pos_phan_tich_gop_don.mermaid](./diagram/pos_phan_tich_gop_don.mermaid) | [pos_phan_tich_gop_don.puml](./diagram/pos_phan_tich_gop_don.puml) | [pos_phan_tich_gop_don.png](../../diagrams/puml_out/chucnang/gop_don/diagram/pos_phan_tich_gop_don.png) | Sơ đồ lớp phân tích chức năng gộp đơn hàng (các bảng có đầy đủ thuộc tính, không để trống) |
+| 2 | **Thiết kế** | [pos_thiet_ke_gop_don.mermaid](./diagram/pos_thiet_ke_gop_don.mermaid) | [pos_thiet_ke_gop_don.puml](./diagram/pos_thiet_ke_gop_don.puml) | [pos_thiet_ke_gop_don.png](../../diagrams/puml_out/chucnang/gop_don/diagram/pos_thiet_ke_gop_don.png) | Sơ đồ lớp thiết kế chức năng gộp đơn hàng (BCE, phương thức gopHoaDon, ganBan; đầy đủ TrangThaiBan, TrangThaiDon) |
 
 ---
 
