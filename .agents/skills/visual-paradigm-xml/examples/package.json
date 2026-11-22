@@ -1,0 +1,3 @@
+{"project":{"name":"Pkg"},"diagrams":[{"type":"package","name":"Package - He thong",
+ "packages":[{"name":"UI"},{"name":"Business"},{"name":"Ordering","parent":"Business"},{"name":"Shipping","parent":"Business"},{"name":"Data"}],
+ "dependencies":[{"from":"UI","to":"Business"},{"from":"Business","to":"Data"}]}]}

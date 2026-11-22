@@ -1,0 +1,11 @@
+{"project":{"name":"Seq"},"diagrams":[{"type":"sequence","name":"UC11 - Quan ly nhan vien",
+ "participants":[{"name":"Manager","kind":"actor"},{"name":"UI_ManageEmployee","stereotype":"boundary"},{"name":"EmployeeController","stereotype":"control"},{"name":"Database","stereotype":"entity"}],
+ "messages":[
+  {"from":"Manager","to":"UI_ManageEmployee","text":"Nhap thong tin & Luu"},
+  {"from":"UI_ManageEmployee","to":"EmployeeController","text":"POST /create"},
+  {"from":"EmployeeController","to":"EmployeeController","text":"Kiem tra du lieu","kind":"self"},
+  {"from":"EmployeeController","to":"Database","text":"Luu nhan vien"},
+  {"from":"Database","to":"EmployeeController","text":"OK","kind":"return"},
+  {"from":"EmployeeController","to":"UI_ManageEmployee","text":"Thanh cong","kind":"return"},
+  {"from":"EmployeeController","to":"UI_ManageEmployee","text":"Loi trung","kind":"return"}],
+ "fragments":[{"operator":"alt","from":5,"to":6,"operands":[{"guard":"hop le","from":5,"to":5},{"guard":"trung","from":6,"to":6}]}]}]}
