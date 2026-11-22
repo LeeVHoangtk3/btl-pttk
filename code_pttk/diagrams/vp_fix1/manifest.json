@@ -1,0 +1,479 @@
+{
+  "source": "code_pttk\\docs\\N13 Nhóm 10_fix1.docx",
+  "source_sha256": "a62305eaad61f8de6e926abc0df85d7da3113928d140f7e17e20e11a824dd611",
+  "figures": [
+    {
+      "index": 8,
+      "caption": "Hình 2.8 Biểu đồ Use case tổng quát cho hệ thống quản lý nhà hàng",
+      "source_image_sha256": "3349b7451eaaed7210f1a0ec499794d66a6e660132c8366fa22cd701e9f3c10c",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-8"
+      ]
+    },
+    {
+      "index": 9,
+      "caption": "Hình 2.9 Biểu đồ Use case phân hệ Quản lý menu",
+      "source_image_sha256": "88a557ba396dbf9690d74f246594d78c0da4498455d9aa705b088c4c8ef95065",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-9"
+      ]
+    },
+    {
+      "index": 10,
+      "caption": "Hình 2.10 Biểu đồ Use case chức năng Tạo đơn hàng (Order)",
+      "source_image_sha256": "07ba5a86cebba6aaaf85d306749d4cfecfcc57c82949612aa9bbcdf0fe2b7cb2",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-10"
+      ]
+    },
+    {
+      "index": 11,
+      "caption": "Hình 2.11 Biểu đồ Use case phân hệ Xử lý đơn (Gộp đơn, Tách đơn, Hủy đơn, Chuyển bàn)",
+      "source_image_sha256": "1d430c93da2c801764bc7c5ab42bd570d59fee020c43bf520fc21aff4a88434c",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-11"
+      ]
+    },
+    {
+      "index": 12,
+      "caption": "Hình 2.12 Biểu đồ Use case chức năng Thanh toán",
+      "source_image_sha256": "9f445ae95dd1ef4313109d9bf196247700425a481a5e467d4cd8026b5f6da9cd",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-12"
+      ]
+    },
+    {
+      "index": 13,
+      "caption": "Hình 2.13 Biểu đồ lớp thực thể pha phân tích cho toàn hệ thống",
+      "source_image_sha256": "83c14c532b519bb8b11bfec44aace56eae6aac9c0775a89b0441bb12d9d2fb69",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-13"
+      ],
+      "geometry": [
+        {
+          "width": 1610,
+          "height": 1110,
+          "nodes": 16,
+          "edges": 16
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "caption": "Hình 2.14 Biểu đồ lớp thực thể pha phân tích cho Quản lý menu (Tạo combo)",
+      "source_image_sha256": "d277f819d48d92f4b7cb888cd77ebe66d698ae274535d8ffdda0c64961164c34",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-14"
+      ],
+      "geometry": [
+        {
+          "width": 1220,
+          "height": 500,
+          "nodes": 5,
+          "edges": 5
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "caption": "Hình 2.15 Biểu đồ lớp thực thể pha phân tích cho Tạo đơn hàng",
+      "source_image_sha256": "8319dfbee3f82114a7a0c869b34dfa7906a4a31845476c3b1cc890fd8ef4f671",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-15"
+      ],
+      "geometry": [
+        {
+          "width": 1220,
+          "height": 850,
+          "nodes": 8,
+          "edges": 7
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "caption": "Hình 2.16 Biểu đồ lớp thực thể pha phân tích cho Gộp đơn hàng",
+      "source_image_sha256": "9b43a5d83b87a08ff40dcfe9b916c74520b3fe655d2cbc35433670214a5dae1f",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-16"
+      ],
+      "geometry": [
+        {
+          "width": 1220,
+          "height": 530,
+          "nodes": 6,
+          "edges": 5
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "caption": "Hình 2.17 Biểu đồ lớp thực thể pha phân tích cho Thanh toán",
+      "source_image_sha256": "6064f3ac528e983cb83f1fb244f87d9ff18086d446998958b66d60aedf32ff02",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-17"
+      ],
+      "geometry": [
+        {
+          "width": 1220,
+          "height": 750,
+          "nodes": 8,
+          "edges": 7
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "caption": "Hình 2.18 Biểu đồ trình tự pha phân tích – Chức năng Tạo combo",
+      "source_image_sha256": "e89879932bff43db1b74f84f93ee2c550e0e4d14f0c1dc09a51d9426ce6d7780",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-18"
+      ],
+      "removed_straight_rows": 371,
+      "size": [
+        1751,
+        1812
+      ]
+    },
+    {
+      "index": 19,
+      "caption": "Hình 2.19 Biểu đồ trình tự pha phân tích – Chức năng Tạo đơn hàng",
+      "source_image_sha256": "27d4fa51d5aa8ea8cb8999ba038d5c1c1f4a87f35ee071fd130bd257c8ead97e",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-19"
+      ],
+      "removed_straight_rows": 331,
+      "size": [
+        1517,
+        1823
+      ]
+    },
+    {
+      "index": 20,
+      "caption": "Hình 2.20 Biểu đồ trình tự pha phân tích – Chức năng Gộp đơn hàng",
+      "source_image_sha256": "9953b6c37230cbebbd024a5b45abf6134489b5933b54f20b7b3cdbcefc1efbe3",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-20"
+      ],
+      "removed_straight_rows": 281,
+      "size": [
+        1750,
+        1503
+      ]
+    },
+    {
+      "index": 21,
+      "caption": "Hình 2.21 Biểu đồ trình tự pha phân tích – Chức năng Thanh toán",
+      "source_image_sha256": "fafd78c380d26e2b5aab325d76ca884e75f12c8a8de23d944edffdbc99f9ecbb",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-21"
+      ],
+      "removed_straight_rows": 473,
+      "size": [
+        1761,
+        2301
+      ]
+    },
+    {
+      "index": 22,
+      "caption": "Hình 2.22 Biểu đồ trạng thái của lớp Đơn hàng (Order)",
+      "source_image_sha256": "2f1af64ab55cdb6a67be0e9c8005b41f74c51063ed00943fbce82d362a1fdcf0",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-22"
+      ]
+    },
+    {
+      "index": 23,
+      "caption": "Hình 2.23 Biểu đồ trạng thái của lớp Bàn ăn (RestaurantTable)",
+      "source_image_sha256": "d97c46b1324b2eaa3781effdd8d58aba0f6b0744134cad5ef7e55d9a3000a7f4",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-23"
+      ]
+    },
+    {
+      "index": 24,
+      "caption": "Hình 2.24 Biểu đồ trạng thái của lớp Món ăn / Combo (MenuItem)",
+      "source_image_sha256": "3ccfbc4b3db10c6ba6bd65d1c99185bce621f93c3bd2a9617e7941ee5516a966",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-24"
+      ]
+    },
+    {
+      "index": 25,
+      "caption": "Hình 2.25 Biểu đồ hoạt động – Chức năng Tạo combo",
+      "source_image_sha256": "95bfa42de3c36399b0cd4bd03a8acedbdc24f5b85de9ffcd83ca0f8e441739cd",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-25"
+      ],
+      "removed_straight_rows": 458,
+      "size": [
+        1639,
+        1518
+      ]
+    },
+    {
+      "index": 26,
+      "caption": "Hình 2.26 Biểu đồ hoạt động – Chức năng Tạo đơn hàng",
+      "source_image_sha256": "dd97c355cca19ec770ed2c39af862ff75c9845308ebc5690c94c5fda10350e09",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-26"
+      ],
+      "removed_straight_rows": 654,
+      "size": [
+        1105,
+        2338
+      ]
+    },
+    {
+      "index": 27,
+      "caption": "Hình 2.27 Biểu đồ hoạt động – Chức năng Gộp đơn hàng",
+      "source_image_sha256": "510a4b62d7b6e1a58f67562204d4f07b684760e19a0e2ef6628bd975ee8f345d",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-27"
+      ],
+      "removed_straight_rows": 414,
+      "size": [
+        1091,
+        1235
+      ]
+    },
+    {
+      "index": 28,
+      "caption": "Hình 2.28 Biểu đồ hoạt động – Chức năng Thanh toán",
+      "source_image_sha256": "e701a3b8d2969d429091c060cee0cf07c23c3c1b52c2a8ab8efd27babc052301",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-28"
+      ],
+      "removed_straight_rows": 561,
+      "size": [
+        859,
+        1760
+      ]
+    },
+    {
+      "index": 29,
+      "caption": "Hình 3.1 Lược đồ quan hệ thực thể (ERD) cho hệ thống",
+      "source_image_sha256": "101096b9b25bcc0c23ae738e68bf062aa887aa87e8aae43f3ce1a57201842e24",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-29"
+      ],
+      "geometry": [
+        {
+          "width": 1610,
+          "height": 1190,
+          "nodes": 16,
+          "edges": 17
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "caption": "Hình 3.2 Biểu đồ lớp thiết kế cho hệ thống",
+      "source_image_sha256": "977def5839f1ddbfee01c4ae59fe2ef8cce658ce2539d5853b50decc16eaed0e",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-30"
+      ],
+      "geometry": [
+        {
+          "width": 2000,
+          "height": 1240,
+          "nodes": 20,
+          "edges": 16
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "caption": "Hình 3.3 Biểu đồ lớp thiết kế cho Quản lý menu",
+      "source_image_sha256": "4d8d6ea8b8e4ec909f9d5a4d4269f23f7058880596986d461a43761bc6dcc478",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-31-a",
+        "figure-31-b"
+      ],
+      "geometry": [
+        {
+          "width": 1190,
+          "height": 1000,
+          "nodes": 9,
+          "edges": 8
+        },
+        {
+          "width": 1190,
+          "height": 520,
+          "nodes": 6,
+          "edges": 5
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "caption": "Hình 3.4 Biểu đồ lớp thiết kế cho Tạo đơn hàng (Chọn bàn và đặt món)",
+      "source_image_sha256": "1058c4bc3dd23e5134ed02069424028a3ad15358679a9c6d26c5b5eb914882e4",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-32-a",
+        "figure-32-b"
+      ],
+      "geometry": [
+        {
+          "width": 1190,
+          "height": 1620,
+          "nodes": 12,
+          "edges": 11
+        },
+        {
+          "width": 1190,
+          "height": 1170,
+          "nodes": 10,
+          "edges": 6
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "caption": "Hình 3.5 Biểu đồ lớp thiết kế cho Gộp đơn hàng",
+      "source_image_sha256": "c5133e00aba1873f92efbcc017afbc9d1ad48ec1522e521fdb951d6bbdd6a766",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-33-a",
+        "figure-33-b"
+      ],
+      "geometry": [
+        {
+          "width": 1190,
+          "height": 1300,
+          "nodes": 12,
+          "edges": 11
+        },
+        {
+          "width": 1190,
+          "height": 960,
+          "nodes": 8,
+          "edges": 5
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "caption": "Hình 3.6 Biểu đồ lớp thiết kế cho Thanh toán",
+      "source_image_sha256": "c3c5bbb026697eae3e91b2dc21c4f69e275ea88b0ffb0f7a6473c223fa82573b",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-34-a",
+        "figure-34-b"
+      ],
+      "geometry": [
+        {
+          "width": 1190,
+          "height": 1410,
+          "nodes": 12,
+          "edges": 11
+        },
+        {
+          "width": 1190,
+          "height": 1220,
+          "nodes": 11,
+          "edges": 7
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "caption": "Hình 3.7 Biểu đồ trình tự thiết kế: Chức năng Tạo combo",
+      "source_image_sha256": "82c93926e1b85d4ab29c0d0c39506bb550f0edef5688dadfbf8850f068db2ba8",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-35"
+      ],
+      "removed_straight_rows": 427,
+      "size": [
+        1536,
+        1957
+      ]
+    },
+    {
+      "index": 36,
+      "caption": "Hình 3.8 Biểu đồ trình tự thiết kế: Chức năng Tạo đơn hàng (Chọn bàn và đặt món)",
+      "source_image_sha256": "7595a9d76e998a2251086d54f2c6b3896678f49455c38cd61acba8e3f279dd24",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-36"
+      ],
+      "removed_straight_rows": 452,
+      "size": [
+        1973,
+        2132
+      ]
+    },
+    {
+      "index": 37,
+      "caption": "Hình 3.9 Biểu đồ trình tự thiết kế: Chức năng Gộp đơn hàng",
+      "source_image_sha256": "8fab273acd91a60e2e48740939706d3a213077d7380ecf9fa0e2d4dc28affdf9",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-37"
+      ],
+      "removed_straight_rows": 427,
+      "size": [
+        1973,
+        2057
+      ]
+    },
+    {
+      "index": 38,
+      "caption": "Hình 3.10 Biểu đồ trình tự thiết kế: Chức năng Thanh toán",
+      "source_image_sha256": "0e34e57ed908df03beeefea3ff5dbccdfdcdd699ec6e950e05af61714fe19162",
+      "method": "native_vp_export",
+      "panels": [
+        "figure-38"
+      ],
+      "removed_straight_rows": 596,
+      "size": [
+        1976,
+        2488
+      ]
+    },
+    {
+      "index": 39,
+      "caption": "Hình 3.11 Biểu đồ thành phần cho hệ thống (thể hiện dạng gói)",
+      "source_image_sha256": "615fccff82f8a417fd3af96b3a431f2eb193018912a385f35c68764e2cc32289",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-39"
+      ]
+    },
+    {
+      "index": 40,
+      "caption": "Hình 3.12 Biểu đồ triển khai cho hệ thống",
+      "source_image_sha256": "978355615e20a49e3230b8e998c06aeb1d5fbf60f1a50f052d66dc0d6700f6f2",
+      "method": "vector_relayout",
+      "panels": [
+        "figure-40"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Visual Paradigm XML và rà soát UML"
-  short_description: "Sinh XML và nhận xét UML, ERD cho Visual Paradigm"
-  default_prompt: "Dùng $visual-paradigm-xml để xử lý XML hoặc nhận xét biểu đồ Visual Paradigm theo yêu cầu."
-policy:
-  allow_implicit_invocation: true

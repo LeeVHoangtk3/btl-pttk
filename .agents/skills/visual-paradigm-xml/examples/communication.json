@@ -1,3 +1,0 @@
-{"project":{"name":"Comm"},"diagrams":[{"type":"communication","name":"Comm - Chon ban",
- "participants":[{"name":"Nhan vien","kind":"actor"},{"name":":TableUI","stereotype":"boundary"},{"name":":OrderController","stereotype":"control"}],
- "messages":[{"from":"Nhan vien","to":":TableUI","text":"Chon ban"},{"from":":TableUI","to":":OrderController","text":"layBan()"},{"from":":OrderController","to":":TableUI","text":"danh sach","kind":"return"}]}]}

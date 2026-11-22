@@ -1,4 +1,0 @@
-{"project":{"name":"Dep"},"diagrams":[{"type":"deployment","name":"Deployment",
- "nodes":[{"name":"Client PC","children":[{"name":"POS App"}]},{"name":"Server","children":[{"name":"API","kind":"component"},{"name":"db.sql","kind":"artifact"}]}],
- "associations":[{"from":"Client PC","to":"Server","name":"HTTPS"}],
- "dependencies":[{"from":"POS App","to":"API"}]}]}
