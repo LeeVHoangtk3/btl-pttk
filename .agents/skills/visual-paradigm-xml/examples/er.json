@@ -1,0 +1,4 @@
+{"project":{"name":"ER"},"diagrams":[{"type":"er","name":"ERD",
+ "tables":[{"name":"BanAn","columns":[{"name":"maBan","type":"integer","pk":true},{"name":"soBan","type":"integer","unique":true}]},
+           {"name":"DonHang","columns":[{"name":"maDon","type":"integer","pk":true},{"name":"tongTien","type":"decimal"}]}],
+ "foreignKeys":[{"from":"BanAn","to":"DonHang"}]}]}

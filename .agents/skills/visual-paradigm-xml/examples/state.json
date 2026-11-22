@@ -1,0 +1,5 @@
+{"project":{"name":"State"},"diagrams":[{"type":"state","name":"State - Don hang",
+ "states":[{"name":"MOI_TAO","documentation":"Hoa don nhap"},{"name":"DANG_PHUC_VU"}],
+ "finals":["DA_THANH_TOAN"],
+ "transitions":[{"from":"initial","to":"MOI_TAO","name":"Chon ban"},{"from":"MOI_TAO","to":"DANG_PHUC_VU","name":"Luu"},
+  {"from":"DANG_PHUC_VU","to":"DANG_PHUC_VU","name":"Goi them mon"},{"from":"DANG_PHUC_VU","to":"DA_THANH_TOAN","name":"Thanh toan"}]}]}
